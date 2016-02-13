@@ -6,12 +6,26 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import cs125.cpuss.gonzalvo_marasigan.models.FCFS;
 import cs125.cpuss.gonzalvo_marasigan.models.Process;
 import cs125.cpuss.gonzalvo_marasigan.models.SJF_P;
 import cs125.cpuss.gonzalvo_marasigan.models.SchedulingAlgorithm;
 
-public class Scheduler {
+public class SchedulerServlet extends HttpServlet {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response){
+		response.setContentType("text/html");
+	}
+
 	public static void main(String[] args){
 		String sCsvFile = args[0];
 		BufferedReader br = null;
