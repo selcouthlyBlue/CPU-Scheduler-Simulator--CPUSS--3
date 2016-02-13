@@ -17,9 +17,8 @@ public class RR extends SchedulingAlgorithm {
 	 * @return 
 	 */
 	@Override
-	public ArrayList<Process> performScheduling() {
+	public void performScheduling() {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public int getQuantum() {

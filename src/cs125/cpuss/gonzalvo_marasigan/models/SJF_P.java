@@ -23,7 +23,7 @@ public class SJF_P extends SchedulingAlgorithm{
 	 * @return 
 	 */
 	@Override
-	public ArrayList<Process> performScheduling(){
+	public void performScheduling(){
 		ArrayList<Process> finished = new ArrayList<Process>();
 		ArrayList<Process> queue = new ArrayList<Process>();
 		Collections.sort(processes, new Process());
@@ -98,7 +98,6 @@ public class SJF_P extends SchedulingAlgorithm{
 		finished.add(currentProcess);
 		Collections.sort(finished);
 		getAverage();
-		processes = new ArrayList<Process>(finished);
-		return processes;
+		this.processes = new ArrayList<Process>(finished);
 	}
 }

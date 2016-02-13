@@ -14,9 +14,8 @@ public class PrioSched extends SchedulingAlgorithm {
 	 * @return 
 	 */
 	@Override
-	public ArrayList<Process> performScheduling() {
+	public void performScheduling() {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

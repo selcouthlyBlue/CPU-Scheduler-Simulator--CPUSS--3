@@ -15,9 +15,8 @@ public class SJF_NP extends SchedulingAlgorithm {
 	 * @return 
 	 */
 	@Override
-	public ArrayList<Process> performScheduling() {
+	public void performScheduling() {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

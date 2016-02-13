@@ -13,26 +13,26 @@
 		 <input type="submit" value="Upload" name="upload" id="upload" />
 	</form>
 	<c:forEach items="${results}" var="result">
-		<h2><c:out value="${result.sName}"></c:out></h2>
+		<h2>${result.getName()}</h2>
 		<table>
-			<thead>
+			<tr>
 				<th>Process ID</th>
 				<th>Arrival Time</th>
 				<th>Burst Time</th>
 				<th>Priority</th>
 				<th>Waiting Time</th>
 				<th>Turnaround Time</th>
-			</thead>
-			<tbody>
-				<c:forEach items="${result.getProcesses()}" var="process">
-					<tr><c:out value="${process.getProcessId()}"></c:out></tr>
-					<tr><c:out value="${process.getArrivalTime()}"></c:out></tr>
-					<tr><c:out value="${process.getBurstTime()}"></c:out></tr>
-					<tr><c:out value="${process.getPriority()}"></c:out></tr>
-					<tr><c:out value="${process.getWaitingTime()}"></c:out>
-					<tr><c:out value="${process.getTurnaroundTime()}"></c:out></tr>
-				</c:forEach>
-			</tbody>
+			</tr>
+			<c:forEach items="${result.getProcesses()}" var="process">
+				<tr>
+					<td><c:out value="${process.getProcessId()}"></c:out></td>
+					<td><c:out value="${process.getArrivalTime()}"></c:out></td>
+					<td><c:out value="${process.getBurstTime()}"></c:out></td>
+					<td><c:out value="${process.getPriority()}"></c:out></td>
+					<td><c:out value="${process.getWaitingTime()}"></c:out></td>
+					<td><c:out value="${process.getTurnaroundTime()}"></c:out></td>
+				</tr>
+			</c:forEach>
 		</table>
 		<p>Average waiting time : <c:out value="${result.getAverageWaitingTime()}"></c:out></p>
 		<p>Average turnaround time : <c:out value="${result.getAverageTurnaroundTime()}"></c:out></p>

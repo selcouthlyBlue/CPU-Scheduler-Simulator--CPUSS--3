@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.Part;
@@ -16,12 +15,10 @@ import javax.servlet.http.Part;
 public class Upload {
 	
 	private Part filePart;
-	private PrintWriter writer;
 	private String fileName;
 	
-	public Upload(Part filePart, PrintWriter writer){
+	public Upload(Part filePart){
 		this.filePart = filePart;
-		this.writer = writer;
 	}
 	
 	public void start() throws IOException{
@@ -41,19 +38,13 @@ public class Upload {
                 out.write(bytes, 0, read);
             }
         } catch (FileNotFoundException fne) {
-            writer.println("You either did not specify a file to upload or are "
-                    + "trying to upload a file to a protected or nonexistent "
-                    + "location.");
-            writer.println("<br/> ERROR: " + fne.getMessage());
+            fne.printStackTrace();
         } finally {
             if (out != null) {
                 out.close();
             }
             if (filecontent != null) {
                 filecontent.close();
-            }
-            if (writer != null) {
-                writer.close();
             }
         }
 	}

@@ -15,7 +15,7 @@ public class FCFS extends SchedulingAlgorithm{
 	 * @return 
 	 */
 	@Override
-	public ArrayList<Process> performScheduling() {
+	public void performScheduling() {
 		Collections.sort(processes, new Process());
 		int prevTurnaroundTime = 0;
 		for(Process process: processes){
@@ -24,6 +24,5 @@ public class FCFS extends SchedulingAlgorithm{
 			prevTurnaroundTime = process.getTurnaroundTime();
 		}
 		getAverage();
-		return processes;
 	}
 }

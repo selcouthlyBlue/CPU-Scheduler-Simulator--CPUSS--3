@@ -32,7 +32,7 @@ public abstract class SchedulingAlgorithm {
 		dAverageTurnaroundTime = dAverageTurnaroundTime/processes.size();
 	}
 
-	public abstract ArrayList<Process> performScheduling();
+	public abstract void performScheduling();
 
 	/**
 	 * Constructor of the Scheduling Algorithm class
