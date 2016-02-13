@@ -8,7 +8,7 @@
 <title>CPU Scheduler Simulator (CPUSS)</title>
 </head>
 <body>
-	<form method="POST" action="upload" enctype="multipart/form-data">
+	<form method="POST" action="Scheduler" enctype="multipart/form-data">
 		Test file: <input type="file" name="file" id="file" />
 		 <input type="submit" value="Upload" name="upload" id="upload" />
 	</form>
