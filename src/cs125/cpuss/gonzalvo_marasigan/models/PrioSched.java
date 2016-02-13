@@ -6,6 +6,7 @@ public class PrioSched extends SchedulingAlgorithm {
 
 	public PrioSched(ArrayList<Process> processes) {
 		super(processes);
+		this.sName = "Priority Scheduling";
 	}
 	
 	/**

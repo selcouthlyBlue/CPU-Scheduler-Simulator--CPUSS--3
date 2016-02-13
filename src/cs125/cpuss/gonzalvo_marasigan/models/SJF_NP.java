@@ -6,6 +6,7 @@ public class SJF_NP extends SchedulingAlgorithm {
 
 	public SJF_NP(ArrayList<Process> processes) {
 		super(processes);
+		this.sName = "Non-preemptive Shortest Job First Scheduling";
 	}
 	
 	/**

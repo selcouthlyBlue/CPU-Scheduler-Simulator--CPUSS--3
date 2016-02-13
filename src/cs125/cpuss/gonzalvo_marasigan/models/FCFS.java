@@ -7,6 +7,7 @@ public class FCFS extends SchedulingAlgorithm{
 
 	public FCFS(ArrayList<Process> processes) {
 		super(processes);
+		this.sName = "First Come, First Serve Scheduling";
 	}
 	
 	/**

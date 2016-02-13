@@ -17,6 +17,7 @@ public abstract class SchedulingAlgorithm {
 	protected ArrayList<Process> timeline;
 	protected double dAverageWaitingTime;
 	protected double dAverageTurnaroundTime;
+	protected String sName;
 	
 	/**
 	 * Gets the Average Waiting Time and Average Turnaround Time 
@@ -67,5 +68,21 @@ public abstract class SchedulingAlgorithm {
 	
 	public ArrayList<Process> getTimeline() {
 		return timeline;
+	}
+
+	public ArrayList<Process> getProcesses() {
+		return processes;
+	}
+
+	public String getName() {
+		return sName;
+	}
+
+	public double getAverageWaitingTime() {
+		return dAverageWaitingTime;
+	}
+
+	public double getAverageTurnaroundTime() {
+		return dAverageTurnaroundTime;
 	}
 }

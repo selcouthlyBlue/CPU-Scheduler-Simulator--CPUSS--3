@@ -8,6 +8,7 @@ public class RR extends SchedulingAlgorithm {
 
 	public RR(ArrayList<Process> processes, int iQuantum) {
 		super(processes);
+		this.sName = "Round Robin Scheduling";
 		this.iQuantum = iQuantum;
 	}
 	

@@ -15,6 +15,7 @@ public class SJF_P extends SchedulingAlgorithm{
 	
 	public SJF_P(ArrayList<Process> processes) {
 		super(processes);
+		this.sName = "Preemptive Shortest Job First Scheduling";
 	}
 	
 	/**
@@ -97,6 +98,7 @@ public class SJF_P extends SchedulingAlgorithm{
 		finished.add(currentProcess);
 		Collections.sort(finished);
 		getAverage();
-		return finished;
+		processes = new ArrayList<Process>(finished);
+		return processes;
 	}
 }
