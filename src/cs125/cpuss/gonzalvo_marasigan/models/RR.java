@@ -13,10 +13,12 @@ public class RR extends SchedulingAlgorithm {
 	
 	/**
 	 * Performs scheduling using the Round Robin scheduling algorithm.
+	 * @return 
 	 */
 	@Override
-	public void performScheduling() {
+	public ArrayList<Process> performScheduling() {
 		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public int getQuantum() {

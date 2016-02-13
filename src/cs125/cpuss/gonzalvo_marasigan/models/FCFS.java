@@ -11,9 +11,10 @@ public class FCFS extends SchedulingAlgorithm{
 	
 	/**
 	 * Performs scheduling using the First Come First Serve scheduling algorithm.
+	 * @return 
 	 */
 	@Override
-	public void performScheduling() {
+	public ArrayList<Process> performScheduling() {
 		Collections.sort(processes, new Process());
 		int prevTurnaroundTime = 0;
 		for(Process process: processes){
@@ -22,5 +23,6 @@ public class FCFS extends SchedulingAlgorithm{
 			prevTurnaroundTime = process.getTurnaroundTime();
 		}
 		getAverage();
+		return processes;
 	}
 }

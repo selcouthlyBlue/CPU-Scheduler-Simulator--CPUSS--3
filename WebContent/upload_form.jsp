@@ -8,10 +8,8 @@
 </head>
 <body>
 	<form method="POST" action="upload" enctype="multipart/form-data">
-		File: <input type="file" name="file" id="file" />
-		Destination:
-		<input type="text" value="/tmp" name="destination" /> <input
-			type="submit" value="Upload" name="upload" id="upload" />
+		Test file: <input type="file" name="file" id="file" />
+		 <input type="submit" value="Upload" name="upload" id="upload" />
 	</form>
 </body>
 </html>

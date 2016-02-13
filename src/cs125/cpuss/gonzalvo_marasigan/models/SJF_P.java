@@ -19,9 +19,10 @@ public class SJF_P extends SchedulingAlgorithm{
 	
 	/**
 	 * Performs scheduling using the Preemptive Shortest Job First Algorithm.
+	 * @return 
 	 */
 	@Override
-	public void performScheduling(){
+	public ArrayList<Process> performScheduling(){
 		ArrayList<Process> finished = new ArrayList<Process>();
 		ArrayList<Process> queue = new ArrayList<Process>();
 		Collections.sort(processes, new Process());
@@ -95,7 +96,7 @@ public class SJF_P extends SchedulingAlgorithm{
 				currentProcess.getStartTime(), currentProcess.getEndTime()));
 		finished.add(currentProcess);
 		Collections.sort(finished);
-		processes = new ArrayList<Process>(finished);
 		getAverage();
+		return finished;
 	}
 }

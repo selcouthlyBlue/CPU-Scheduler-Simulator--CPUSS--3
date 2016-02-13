@@ -10,11 +10,12 @@ public class PrioSched extends SchedulingAlgorithm {
 	
 	/**
 	 * Performs scheduling using the Priority scheduling algorithm.
+	 * @return 
 	 */
 	@Override
-	public void performScheduling() {
+	public ArrayList<Process> performScheduling() {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 }

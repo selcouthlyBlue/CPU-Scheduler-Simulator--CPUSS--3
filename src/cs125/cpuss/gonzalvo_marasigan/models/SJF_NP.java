@@ -11,11 +11,12 @@ public class SJF_NP extends SchedulingAlgorithm {
 	/**
 	 * Performs scheduling using the Non-preemptive Shortest
 	 * Job First Algorithm.
+	 * @return 
 	 */
 	@Override
-	public void performScheduling() {
+	public ArrayList<Process> performScheduling() {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 }
