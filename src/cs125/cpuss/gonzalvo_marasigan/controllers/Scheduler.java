@@ -1,10 +1,15 @@
-package cs125.gonzalvo_marasigan.cpuss;
+package cs125.cpuss.gonzalvo_marasigan.controllers;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import cs125.cpuss.gonzalvo_marasigan.models.FCFS;
+import cs125.cpuss.gonzalvo_marasigan.models.Process;
+import cs125.cpuss.gonzalvo_marasigan.models.SJF_P;
+import cs125.cpuss.gonzalvo_marasigan.models.SchedulingAlgorithm;
 
 public class Scheduler {
 	public static void main(String[] args){

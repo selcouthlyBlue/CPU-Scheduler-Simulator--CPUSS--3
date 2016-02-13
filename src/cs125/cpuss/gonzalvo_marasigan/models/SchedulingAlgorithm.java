@@ -1,4 +1,4 @@
-package cs125.gonzalvo_marasigan.cpuss;
+package cs125.cpuss.gonzalvo_marasigan.models;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
