@@ -34,10 +34,10 @@ public class SchedulerServlet extends HttpServlet {
         upload.start();
         ArrayList<Process> processes = new ArrayList<Process>(upload.getProcesses());
         ArrayList<SchedulingAlgorithm> results = new ArrayList<SchedulingAlgorithm>();
-        SchedulingAlgorithm fcfs = new FCFS(new ArrayList<Process>(processes));
+        SchedulingAlgorithm fcfs = new FCFS(processes);
         fcfs.performScheduling();
         results.add(fcfs);
-        SchedulingAlgorithm sjfp = new SJF_P(new ArrayList<Process>(processes));
+        SchedulingAlgorithm sjfp = new SJF_P(processes);
         sjfp.performScheduling();
         results.add(sjfp);
         request.setAttribute("results", results);
@@ -45,6 +45,4 @@ public class SchedulerServlet extends HttpServlet {
         		request.getRequestDispatcher("upload_form.jsp");
         view.forward(request, response);
 	}
-	
-	
 }
