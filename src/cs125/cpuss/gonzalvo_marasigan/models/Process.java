@@ -47,6 +47,15 @@ public class Process implements Comparable<Process>, Comparator<Process>{
 		this.iEndTime = endTime;
 	}
 
+	public Process(Process process) {
+		this.iProcessId = process.iProcessId;
+		this.iArrivalTime = process.iArrivalTime;
+		this.iBurstTime = process.iBurstTime;
+		this.iRemainingBTime = this.iBurstTime;
+		this.iPriority = process.iPriority;
+		this.iCurrentPriority = this.iPriority;
+	}
+
 	public int getBurstTime() {
 		return iBurstTime;
 	}

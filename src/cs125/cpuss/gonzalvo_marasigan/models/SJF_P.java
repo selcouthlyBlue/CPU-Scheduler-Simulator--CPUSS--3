@@ -97,7 +97,7 @@ public class SJF_P extends SchedulingAlgorithm{
 				currentProcess.getStartTime(), currentProcess.getEndTime()));
 		finished.add(currentProcess);
 		Collections.sort(finished);
-		getAverage();
 		this.processes = new ArrayList<Process>(finished);
+		getAverage();
 	}
 }
