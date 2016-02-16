@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import cs125.cpuss.gonzalvo_marasigan.models.FCFS;
+import cs125.cpuss.gonzalvo_marasigan.models.PrioSched;
 import cs125.cpuss.gonzalvo_marasigan.models.Process;
 import cs125.cpuss.gonzalvo_marasigan.models.SJF_P;
 import cs125.cpuss.gonzalvo_marasigan.models.SchedulingAlgorithm;
@@ -40,6 +41,9 @@ public class SchedulerServlet extends HttpServlet {
         SchedulingAlgorithm sjfp = new SJF_P(processes);
         sjfp.performScheduling();
         results.add(sjfp);
+        SchedulingAlgorithm prio = new PrioSched(processes);
+        prio.performScheduling();
+        results.add(prio);
         request.setAttribute("results", results);
         RequestDispatcher view =
         		request.getRequestDispatcher("upload_form.jsp");

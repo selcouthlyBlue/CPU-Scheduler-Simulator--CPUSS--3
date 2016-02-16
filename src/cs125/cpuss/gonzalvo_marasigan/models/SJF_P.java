@@ -27,8 +27,7 @@ public class SJF_P extends SchedulingAlgorithm{
 		ArrayList<Process> finished = new ArrayList<Process>();
 		ArrayList<Process> queue = new ArrayList<Process>();
 		Collections.sort(processes, new Process());
-		Process currentProcess = new Process();
-		currentProcess = processes.remove(0);
+		Process currentProcess = processes.remove(0);
 		int t = 0;
 		for(Process process : processes){
 			if(!queue.isEmpty()){
@@ -89,15 +88,16 @@ public class SJF_P extends SchedulingAlgorithm{
 			}
 			queue.add(currentProcess);
 			currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
-			currentProcess.start(t);
+			if(!queue.isEmpty()){
+				currentProcess.start(t);
+			}
 		}
-		currentProcess.start(t);
 		currentProcess.destroy(t);
 		timeline.add(new Process(currentProcess.getProcessId(), 
 				currentProcess.getStartTime(), currentProcess.getEndTime()));
 		finished.add(currentProcess);
 		Collections.sort(finished);
-		this.processes = new ArrayList<Process>(finished);
+		processes = finished;
 		getAverage();
 	}
 }
