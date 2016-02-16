@@ -9,7 +9,7 @@
 </head>
 <body>
 	<form method="POST" action="Scheduler" enctype="multipart/form-data">
-		Test file: <input type="file" name="file" id="file" />
+		Test file: <input type="file" name="file" id="file" required/>
 		 <input type="submit" value="Upload" name="upload" id="upload" />
 	</form>
 	<c:forEach items="${results}" var="result">
