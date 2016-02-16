@@ -17,7 +17,6 @@ public class HomeServlet extends HttpServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.setContentType("text/html;charset=UTF-8");
-		request.setAttribute("title", "Upload test file");
 		RequestDispatcher view =
         		request.getRequestDispatcher("upload_form.jsp");
         view.forward(request, response);
