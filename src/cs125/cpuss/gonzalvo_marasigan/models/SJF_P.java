@@ -90,14 +90,15 @@ public class SJF_P extends SchedulingAlgorithm{
 			currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
 			if(!queue.isEmpty()){
 				currentProcess.start(t);
+			} else {
+				currentProcess.destroy(t);
+				timeline.add(new Process(currentProcess.getProcessId(), 
+						currentProcess.getStartTime(), currentProcess.getEndTime()));
+				finished.add(currentProcess);
+				Collections.sort(finished);
+				processes = finished;
+				getAverage();
 			}
 		}
-		currentProcess.destroy(t);
-		timeline.add(new Process(currentProcess.getProcessId(), 
-				currentProcess.getStartTime(), currentProcess.getEndTime()));
-		finished.add(currentProcess);
-		Collections.sort(finished);
-		processes = finished;
-		getAverage();
 	}
 }

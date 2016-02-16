@@ -37,7 +37,7 @@ public class PrioSched extends SchedulingAlgorithm {
 				if(currentProcess == null){
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
 				}
-				else if(currentProcess.getRemainingBTime() > Collections.min(queue, priorityOrder).getRemainingBTime()){
+				else if(currentProcess.getCurrentPriority() > Collections.min(queue, priorityOrder).getCurrentPriority()){
 					currentProcess.stop(t);
 					timeline.add(new Process(currentProcess.getProcessId(), 
 							currentProcess.getStartTime(), currentProcess.getEndTime()));
@@ -93,15 +93,16 @@ public class PrioSched extends SchedulingAlgorithm {
 			currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
 			if(!queue.isEmpty()){
 				currentProcess.start(t);
+			} else {
+				currentProcess.destroy(t);
+				timeline.add(new Process(currentProcess.getProcessId(), 
+						currentProcess.getStartTime(), currentProcess.getEndTime()));
+				finished.add(currentProcess);
+				Collections.sort(finished);
+				this.processes = new ArrayList<Process>(finished);
+				getAverage();
 			}
 		}
-		currentProcess.destroy(t);
-		timeline.add(new Process(currentProcess.getProcessId(), 
-				currentProcess.getStartTime(), currentProcess.getEndTime()));
-		finished.add(currentProcess);
-		Collections.sort(finished);
-		this.processes = new ArrayList<Process>(finished);
-		getAverage();
 	}
 
 }
