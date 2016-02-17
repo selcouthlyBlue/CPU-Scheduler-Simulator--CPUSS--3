@@ -14,7 +14,7 @@
 <body>
 	<div class="content">
 		<h1 class="content-subhead">Processing Unit Scheduling Simulator for Computers</h1>
-		<form method="POST" action="Scheduler" enctype="multipart/form-data">
+		<form method="POST" action="Scheduler" enctype="multipart/form-data" class="upload-form pure-form pure-form-stacked">
 		<div class="file-upload-container pure-input-1">
 			<div class="file-upload-override-button left pure-button">
 				<input class="file-upload-button" type="file" name="file" id="file-upload-button" required/>
@@ -22,7 +22,7 @@
 			</div>
 			<div class="file-upload-filename left" id="file-upload-filename" contenteditable="false">No file selected</div>
 		</div>
-		<input class="pure-input-1-1" name="quantum" placeholder="quantum" type="text" min="1" required><br/><br/>
+		<input class="pure-input-1-1" name="quantum" placeholder="quantum" type="text" min="1" required> <br/>
 		<input class="pure-button custom-button" type="submit" value="Upload" name="upload" id="upload" />
 	</form>
 	<c:forEach items="${results}" var="result">
@@ -50,7 +50,7 @@
 		<p>Average waiting time : ${result.getAverageWaitingTime()}</p>
 		<p>Average turnaround time : ${result.getAverageTurnaroundTime()}</p>
 		<c:forEach items="${result.getTimeline()}" var="process">
-			<div class="process" style="width:${process.getLength()}em">P${process.getProcessId()}</div>
+			<div class="process" style="width:${process.getLength()}em; background-color: rgb(${process.getProcessId() + 100}, ${process.getProcessId() * 25}, ${process.getProcessId() * 12})">P${process.getProcessId()}</div>
 			<sub>${process.getEndTime()}</sub>
 		</c:forEach>
 	</c:forEach>
