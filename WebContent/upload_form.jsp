@@ -13,7 +13,13 @@
 	<div class="content">
 		<h1 class="content-subhead">Processing Unit Scheduling Simulator for Computers (PUSS-C)</h1>
 		<form method="POST" action="Scheduler" enctype="multipart/form-data">
-		Test file: <input type="file" name="file" id="file" required/>
+		<div class="file-upload-container pure-input-1">
+			<div class="file-upload-override-button left pure-button">
+				<input class="file-upload-button" type="file" name="file" id="file-upload-button" required/>
+				Choose test file
+			</div>
+			<div class="file-upload-filename left" id="file-upload-filename" contenteditable="false">No file selected</div>
+		</div>
 		 <input class="pure-button custom-button" type="submit" value="Upload" name="upload" id="upload" />
 	</form>
 	<c:forEach items="${results}" var="result">
@@ -47,4 +53,7 @@
 	</c:forEach>
 	</div>
 </body>
+<script type="text/javascript" charset="utf8" src="assets/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" charset="utf8" src="assets/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" charset="utf8" src="assets/js/script.js"></script>
 </html>

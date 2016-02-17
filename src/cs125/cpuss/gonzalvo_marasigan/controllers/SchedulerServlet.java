@@ -31,22 +31,27 @@ public class SchedulerServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
 		response.setContentType("text/html;charset=UTF-8");
         final Part filePart = request.getPart("file");
-        Upload upload = new Upload(filePart);
-        upload.start();
-        ArrayList<Process> processes = new ArrayList<Process>(upload.getProcesses());
-        ArrayList<SchedulingAlgorithm> results = new ArrayList<SchedulingAlgorithm>();
-        SchedulingAlgorithm fcfs = new FCFS(processes);
-        fcfs.performScheduling();
-        results.add(fcfs);
-        SchedulingAlgorithm sjfp = new SJF_P(processes);
-        sjfp.performScheduling();
-        results.add(sjfp);
-        SchedulingAlgorithm prio = new PrioSched(processes);
-        prio.performScheduling();
-        results.add(prio);
-        request.setAttribute("results", results);
-        RequestDispatcher view =
-        		request.getRequestDispatcher("upload_form.jsp");
-        view.forward(request, response);
+        if(!filePart.equals(null)){
+        	Upload upload = new Upload(filePart);
+            upload.start();
+            ArrayList<Process> processes = new ArrayList<Process>(upload.getProcesses());
+            ArrayList<SchedulingAlgorithm> results = new ArrayList<SchedulingAlgorithm>();
+            SchedulingAlgorithm fcfs = new FCFS(processes);
+            fcfs.performScheduling();
+            results.add(fcfs);
+            SchedulingAlgorithm sjfp = new SJF_P(processes);
+            sjfp.performScheduling();
+            results.add(sjfp);
+            SchedulingAlgorithm prio = new PrioSched(processes);
+            prio.performScheduling();
+            results.add(prio);
+            request.setAttribute("results", results);
+            RequestDispatcher view =
+            		request.getRequestDispatcher("upload_form.jsp");
+            view.forward(request, response);
+        } else {
+        	request.setAttribute("results", null);
+        	response.sendRedirect("/Home");
+        }
 	}
 }
