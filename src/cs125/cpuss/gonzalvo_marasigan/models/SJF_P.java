@@ -59,8 +59,10 @@ public class SJF_P extends SchedulingAlgorithm{
 			}
 			if(currentProcess != null && currentProcess.getRemainingBTime() > process.getBurstTime()){
 				currentProcess.stop(t);
-				timeline.add(new Process(currentProcess.getProcessId(), 
-						currentProcess.getStartTime(), currentProcess.getEndTime()));
+				if(currentProcess.getRemainingBTime() != currentProcess.getBurstTime()){
+					timeline.add(new Process(currentProcess.getProcessId(), 
+							currentProcess.getStartTime(), currentProcess.getEndTime()));
+				}
 				queue.add(currentProcess);
 				currentProcess = process;
 				currentProcess.start(t);
@@ -83,7 +85,7 @@ public class SJF_P extends SchedulingAlgorithm{
 				currentProcess.run();
 				t++;
 			}
-			if(currentProcess.getEndTime() != 0){
+			if(currentProcess.getEndTime() != 0 && !queue.isEmpty()){
 				currentProcess.stop(t);
 				timeline.add(new Process(currentProcess.getProcessId(), 
 						currentProcess.getStartTime(), currentProcess.getEndTime()));
