@@ -5,16 +5,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel='stylesheet' type='text/css' href='assets/css/pure.css'>
+<link rel='stylesheet' type='text/css' href='assets/css/style.css'>
 <title>CPU Scheduler Simulator (CPUSS)</title>
 </head>
 <body>
-	<form method="POST" action="Scheduler" enctype="multipart/form-data">
+	<div class="content">
+		<h1 class="content-subhead">CPU Scheduler Simulator (CPUSS)</h1>
+		<form method="POST" action="Scheduler" enctype="multipart/form-data">
 		Test file: <input type="file" name="file" id="file" required/>
 		 <input type="submit" value="Upload" name="upload" id="upload" />
 	</form>
 	<c:forEach items="${results}" var="result">
 		<h2>${result.getName()}</h2>
-		<table>
+		<table class="pure-table">
 			<tr>
 				<th>Process ID</th>
 				<th>Arrival Time</th>
@@ -37,5 +41,6 @@
 		<p>Average waiting time : <c:out value="${result.getAverageWaitingTime()}"></c:out></p>
 		<p>Average turnaround time : <c:out value="${result.getAverageTurnaroundTime()}"></c:out></p>
 	</c:forEach>
+	</div>
 </body>
 </html>
