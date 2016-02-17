@@ -20,7 +20,8 @@
 			</div>
 			<div class="file-upload-filename left" id="file-upload-filename" contenteditable="false">No file selected</div>
 		</div>
-		 <input class="pure-button custom-button" type="submit" value="Upload" name="upload" id="upload" />
+		Quantum: <input type="number" min="1">
+		<input class="pure-button custom-button" type="submit" value="Upload" name="upload" id="upload" />
 	</form>
 	<c:forEach items="${results}" var="result">
 		<h2>${result.getName()}</h2>
