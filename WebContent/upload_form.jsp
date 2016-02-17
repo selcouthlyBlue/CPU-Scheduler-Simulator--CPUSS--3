@@ -7,11 +7,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel='stylesheet' type='text/css' href='assets/css/pure.css'>
 <link rel='stylesheet' type='text/css' href='assets/css/style.css'>
-<title>Processing Unit Scheduling Simulator for Computers (PUSS-C)</title>
+<title>Processing Unit Scheduling Simulator for Computers</title>
 </head>
 <body>
 	<div class="content">
-		<h1 class="content-subhead">Processing Unit Scheduling Simulator for Computers (PUSS-C)</h1>
+		<h1 class="content-subhead">Processing Unit Scheduling Simulator for Computers</h1>
 		<form method="POST" action="Scheduler" enctype="multipart/form-data">
 		<div class="file-upload-container pure-input-1">
 			<div class="file-upload-override-button left pure-button">
