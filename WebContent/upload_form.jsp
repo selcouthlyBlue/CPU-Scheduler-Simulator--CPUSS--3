@@ -5,8 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel='stylesheet' type='text/css' href='assets/css/bootstrap.min.css'>
 <link rel='stylesheet' type='text/css' href='assets/css/pure.css'>
 <link rel='stylesheet' type='text/css' href='assets/css/style.css'>
+<link href="//yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css" rel="stylesheet" type="text/css">
 <title>Processing Unit Scheduling Simulator for Computers</title>
 </head>
 <body>
@@ -20,7 +22,7 @@
 			</div>
 			<div class="file-upload-filename left" id="file-upload-filename" contenteditable="false">No file selected</div>
 		</div>
-		Quantum: <input type="number" min="1">
+		<input class="pure-input-1-1" name="quantum" placeholder="quantum" type="text" min="1" required><br/><br/>
 		<input class="pure-button custom-button" type="submit" value="Upload" name="upload" id="upload" />
 	</form>
 	<c:forEach items="${results}" var="result">
