@@ -50,8 +50,9 @@ public class SchedulerServlet extends HttpServlet {
             		request.getRequestDispatcher("upload_form.jsp");
             view.forward(request, response);
         } else {
-        	request.setAttribute("results", null);
-        	response.sendRedirect("/Home");
+        	RequestDispatcher view =
+            		request.getRequestDispatcher("index.html");
+            view.forward(request, response);
         }
 	}
 }
