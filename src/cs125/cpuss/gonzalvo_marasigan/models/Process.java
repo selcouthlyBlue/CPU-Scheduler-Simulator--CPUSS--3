@@ -147,6 +147,10 @@ public class Process implements Comparable<Process>, Comparator<Process>{
 		this.iStartTime = 0;
 		this.iEndTime = 0;
 	}
+	
+	public int getLength(){
+		return (this.iEndTime - this.iStartTime);
+	}
 
 	@Override
 	public int compareTo(Process process) {

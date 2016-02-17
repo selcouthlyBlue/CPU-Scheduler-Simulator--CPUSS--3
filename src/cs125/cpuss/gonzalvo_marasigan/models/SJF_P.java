@@ -36,8 +36,10 @@ public class SJF_P extends SchedulingAlgorithm{
 				}
 				else if(currentProcess.getRemainingBTime() > Collections.min(queue, burstOrder).getRemainingBTime()){
 					currentProcess.stop(t);
-					timeline.add(new Process(currentProcess.getProcessId(), 
-							currentProcess.getStartTime(), currentProcess.getEndTime()));
+					if(currentProcess.getRemainingBTime() != currentProcess.getBurstTime()){
+						timeline.add(new Process(currentProcess.getProcessId(), 
+								currentProcess.getStartTime(), currentProcess.getEndTime()));
+					}
 					queue.add(currentProcess);
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
 					currentProcess.start(t);
