@@ -16,7 +16,7 @@ public class FCFS extends SchedulingAlgorithm{
 	@Override
 	public void performScheduling() {
 		Collections.sort(processes, new Process());
-		int prevTurnaroundTime = 0;
+		int prevTurnaroundTime = processes.get(0).getArrivalTime();
 		for(Process process: processes){
 			process.start(prevTurnaroundTime);
 			process.destroy(prevTurnaroundTime);
