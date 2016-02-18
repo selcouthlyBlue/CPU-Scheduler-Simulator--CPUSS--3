@@ -12,7 +12,6 @@ public class FCFS extends SchedulingAlgorithm{
 	
 	/**
 	 * Performs scheduling using the First Come First Serve scheduling algorithm.
-	 * @return 
 	 */
 	@Override
 	public void performScheduling() {

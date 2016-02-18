@@ -20,7 +20,6 @@ public class SJF_P extends SchedulingAlgorithm{
 	
 	/**
 	 * Performs scheduling using the Preemptive Shortest Job First Algorithm.
-	 * @return 
 	 */
 	@Override
 	public void performScheduling(){
