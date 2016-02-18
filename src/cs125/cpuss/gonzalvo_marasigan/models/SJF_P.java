@@ -28,6 +28,9 @@ public class SJF_P extends SchedulingAlgorithm{
 		Collections.sort(processes, new Process());
 		Process currentProcess = processes.remove(0);
 		int t = 0;
+		while (t != currentProcess.getArrivalTime()){
+			t++;
+		}
 		for(Process process : processes){
 			if(!queue.isEmpty()){
 				if(currentProcess == null){
