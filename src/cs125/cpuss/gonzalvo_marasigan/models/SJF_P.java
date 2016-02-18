@@ -46,6 +46,7 @@ public class SJF_P extends SchedulingAlgorithm{
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
 					currentProcess.start(t);
 				}
+			} else {
 			}
 			while(t != process.getArrivalTime() || currentProcess.getRemainingBTime() == 0){
 				if(currentProcess.getRemainingBTime() == 0){

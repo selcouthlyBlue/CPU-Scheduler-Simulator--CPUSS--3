@@ -15,7 +15,7 @@ public class Process implements Comparable<Process>, Comparator<Process>{
 	private int iEndTime;
 	
 	Process(){
-		
+		this.iProcessId = 0;
 	}
 	
 	/**
@@ -137,15 +137,6 @@ public class Process implements Comparable<Process>, Comparator<Process>{
 		this.iEndTime = time + this.iRemainingBTime;
 		this.iWaitingTime -= this.iArrivalTime;
 		this.iTurnaroundTime = this.iWaitingTime + this.iBurstTime;
-	}
-	
-	public void reset(){
-		this.iRemainingBTime = this.iBurstTime;
-		this.iCurrentPriority = this.iPriority;
-		this.iWaitingTime = 0;
-		this.iTurnaroundTime = 0;
-		this.iStartTime = 0;
-		this.iEndTime = 0;
 	}
 	
 	public int getLength(){
