@@ -55,4 +55,10 @@ public class SchedulerServlet extends HttpServlet {
             view.forward(request, response);
         }
 	}
+	
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		RequestDispatcher view =
+        		request.getRequestDispatcher("index.jsp");
+        view.forward(request, response);
+	}
 }
