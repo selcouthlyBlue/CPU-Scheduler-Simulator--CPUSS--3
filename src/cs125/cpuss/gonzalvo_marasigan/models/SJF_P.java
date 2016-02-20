@@ -32,15 +32,6 @@ public class SJF_P extends SchedulingAlgorithm{
 			t++;
 		}
 		for(Process process : processes){
-			if(!queue.isEmpty() && t < currentProcess.getArrivalTime()){
-				Process nullProcess = new Process();
-				nullProcess.start(t);
-				while(t < currentProcess.getArrivalTime()){
-					t++;
-				}
-				nullProcess.stop(t);
-				timeline.add(new Process(nullProcess));
-			}
 			if(!queue.isEmpty() && currentProcess.getRemainingBurstTime() > Collections.min(queue, burstOrder).getRemainingBurstTime()){
 				currentProcess.stop(t);
 				if(currentProcess.getRemainingBurstTime() != currentProcess.getBurstTime()){
@@ -82,15 +73,6 @@ public class SJF_P extends SchedulingAlgorithm{
 					timeline.add(new Process(currentProcess));
 					finished.add(currentProcess);
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
-					if(t < currentProcess.getArrivalTime()){
-						Process nullProcess = new Process();
-						nullProcess.start(t);
-						while(t < currentProcess.getArrivalTime()){
-							t++;
-						}
-						nullProcess.stop(t);
-						timeline.add(new Process(nullProcess));
-					}
 					currentProcess.start(t);
 				}
 				currentProcess.run();
