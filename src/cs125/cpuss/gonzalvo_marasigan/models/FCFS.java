@@ -21,18 +21,17 @@ public class FCFS extends SchedulingAlgorithm{
 			if(prevTurnaroundTime < process.getArrivalTime()){
 				Process nullProcess = new Process();
 				nullProcess.start(prevTurnaroundTime);
-				while (prevTurnaroundTime != process.getArrivalTime()){
+				while (prevTurnaroundTime < process.getArrivalTime()){
 					prevTurnaroundTime++;
 				}
 				nullProcess.stop(prevTurnaroundTime);
 				if(nullProcess.getLength() != 0){
-					timeline.add(nullProcess);
+					timeline.add(new Process(nullProcess));
 				}
 			}
 			process.start(prevTurnaroundTime);
 			process.destroy(prevTurnaroundTime);
-			timeline.add(new Process(process.getProcessId(), 
-							process.getStartTime(), process.getEndTime()));
+			timeline.add(new Process(process));
 			prevTurnaroundTime = process.getTurnaroundTime() + process.getArrivalTime();
 		}
 		getAverage();

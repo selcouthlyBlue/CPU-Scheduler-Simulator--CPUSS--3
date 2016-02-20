@@ -40,9 +40,8 @@ public class PrioSched extends SchedulingAlgorithm {
 				}
 				else if(currentProcess.getCurrentPriority() > Collections.min(queue, priorityOrder).getCurrentPriority()){
 					currentProcess.stop(t);
-					if(currentProcess.getRemainingBTime() != currentProcess.getBurstTime()){
-						timeline.add(new Process(currentProcess.getProcessId(), 
-								currentProcess.getStartTime(), currentProcess.getEndTime()));
+					if(currentProcess.getRemainingBurstTime() != currentProcess.getBurstTime()){
+						timeline.add(new Process(currentProcess));
 					}
 					queue.add(currentProcess);
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
@@ -51,11 +50,10 @@ public class PrioSched extends SchedulingAlgorithm {
 			} else {
 				
 			}
-			while(t != process.getArrivalTime() || currentProcess.getRemainingBTime() == 0){
-				if(currentProcess.getRemainingBTime() == 0){
+			while(t != process.getArrivalTime() || currentProcess.getRemainingBurstTime() == 0){
+				if(currentProcess.getRemainingBurstTime() == 0){
 					currentProcess.destroy(t);
-					timeline.add(new Process(currentProcess.getProcessId(), 
-							currentProcess.getStartTime(), currentProcess.getEndTime()));
+					timeline.add(new Process(currentProcess));
 					finished.add(currentProcess);
 					currentProcess = null;
 					break;
@@ -65,9 +63,8 @@ public class PrioSched extends SchedulingAlgorithm {
 			}
 			if(currentProcess != null && currentProcess.getCurrentPriority() > process.getCurrentPriority()){
 				currentProcess.stop(t);
-				if(currentProcess.getRemainingBTime() != currentProcess.getBurstTime()){
-					timeline.add(new Process(currentProcess.getProcessId(), 
-							currentProcess.getStartTime(), currentProcess.getEndTime()));
+				if(currentProcess.getRemainingBurstTime() != currentProcess.getBurstTime()){
+					timeline.add(new Process(currentProcess));
 				}
 				queue.add(currentProcess);
 				currentProcess = process;
@@ -80,10 +77,9 @@ public class PrioSched extends SchedulingAlgorithm {
 		}
 		while(!queue.isEmpty()){
 			while(!queue.isEmpty() && currentProcess.getCurrentPriority() <= Collections.min(queue, priorityOrder).getCurrentPriority()){
-				if(currentProcess.getRemainingBTime() == 0){
+				if(currentProcess.getRemainingBurstTime() == 0){
 					currentProcess.destroy(t);
-					timeline.add(new Process(currentProcess.getProcessId(), 
-							currentProcess.getStartTime(), currentProcess.getEndTime()));
+					timeline.add(new Process(currentProcess));
 					finished.add(currentProcess);
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
 					currentProcess.start(t);
@@ -93,8 +89,7 @@ public class PrioSched extends SchedulingAlgorithm {
 			}
 			if(currentProcess.getEndTime() != 0){
 				currentProcess.stop(t);
-				timeline.add(new Process(currentProcess.getProcessId(), 
-						currentProcess.getStartTime(), currentProcess.getEndTime()));
+				timeline.add(new Process(currentProcess));
 			}
 			queue.add(currentProcess);
 			currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
@@ -102,8 +97,7 @@ public class PrioSched extends SchedulingAlgorithm {
 				currentProcess.start(t);
 			} else {
 				currentProcess.destroy(t);
-				timeline.add(new Process(currentProcess.getProcessId(), 
-						currentProcess.getStartTime(), currentProcess.getEndTime()));
+				timeline.add(new Process(currentProcess));
 				finished.add(currentProcess);
 				Collections.sort(finished);
 				this.processes = new ArrayList<Process>(finished);

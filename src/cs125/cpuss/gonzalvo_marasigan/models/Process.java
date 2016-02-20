@@ -15,7 +15,7 @@ public class Process implements Comparable<Process>, Comparator<Process>{
 	private int iEndTime;
 	
 	Process(){
-		this.iProcessId = 0;
+		
 	}
 	
 	/**
@@ -35,22 +35,17 @@ public class Process implements Comparable<Process>, Comparator<Process>{
 	}
 	
 	/**
-	 * Secondary constructor of the Process class with known startTime
-	 * and endTime.
-	 * @param processId
-	 * @param startTime
-	 * @param endTime
+	 * Copy constructor of the Process class
+	 * @param process
 	 */
-	public Process(int processId, int startTime, int endTime) {
-		this.iProcessId = processId;
-		this.iStartTime = startTime;
-		this.iEndTime = endTime;
-	}
-
 	public Process(Process process) {
 		this.iProcessId = process.iProcessId;
 		this.iArrivalTime = process.iArrivalTime;
 		this.iBurstTime = process.iBurstTime;
+		this.iStartTime = process.iStartTime;
+		this.iEndTime = process.iEndTime;
+		this.iWaitingTime = process.iWaitingTime;
+		this.iTurnaroundTime = process.iTurnaroundTime;
 		this.iRemainingBTime = this.iBurstTime;
 		this.iPriority = process.iPriority;
 		this.iCurrentPriority = this.iPriority;
@@ -88,7 +83,7 @@ public class Process implements Comparable<Process>, Comparator<Process>{
 		return iEndTime;
 	}
 
-	public int getRemainingBTime() {
+	public int getRemainingBurstTime() {
 		return iRemainingBTime;
 	}
 	
@@ -104,7 +99,7 @@ public class Process implements Comparable<Process>, Comparator<Process>{
 	}
 	
 	/**
-	 * Substracts 1 from the remaining burst time.
+	 * Subtracts 1 from the remaining burst time.
 	 */
 	public void run(){
 		this.iRemainingBTime--;
