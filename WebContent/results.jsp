@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
-<t:header></t:header>
+<t:header/>
 <div class="content">
-	<t:test_select_form></t:test_select_form>
-	<t:results></t:results>
+	<t:test_select_form/>
+	<t:results/>
 </div>
-<t:footer></t:footer>
+<t:footer/>
