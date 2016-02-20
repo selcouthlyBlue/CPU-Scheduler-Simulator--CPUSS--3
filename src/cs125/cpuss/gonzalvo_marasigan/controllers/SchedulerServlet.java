@@ -47,11 +47,11 @@ public class SchedulerServlet extends HttpServlet {
             results.add(prio);
             request.setAttribute("results", results);
             RequestDispatcher view =
-            		request.getRequestDispatcher("upload_form.jsp");
+            		request.getRequestDispatcher("results.jsp");
             view.forward(request, response);
         } else {
         	RequestDispatcher view =
-            		request.getRequestDispatcher("index.html");
+            		request.getRequestDispatcher("index.jsp");
             view.forward(request, response);
         }
 	}
