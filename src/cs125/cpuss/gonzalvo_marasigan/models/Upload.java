@@ -55,12 +55,14 @@ public class Upload {
 		String line = null;
 		String splitter = ",";
 		ArrayList<Process> processes = new ArrayList<Process>();
+		int iProcessId = 0;
 		while((line = br.readLine()) != null){
+			iProcessId++;
 			String[] row = line.split(splitter);
-			Process process = new Process(Integer.parseInt(row[0]), 
-					Integer.parseInt(row[1]), 
-					Integer.parseInt(row[2]), 
-					Integer.parseInt(row[3]));
+			Process process = new Process(iProcessId, 
+						Integer.parseInt(row[0]), 
+						Integer.parseInt(row[1]), 
+						(row.length == 2 ? 0 : Integer.parseInt(row[2])));
 			processes.add(process);
 		}
 		br.close();
