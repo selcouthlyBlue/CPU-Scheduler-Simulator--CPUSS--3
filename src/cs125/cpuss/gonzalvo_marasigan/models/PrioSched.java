@@ -30,15 +30,12 @@ public class PrioSched extends SchedulingAlgorithm {
 		Collections.sort(processes, new Process());
 		Process currentProcess = processes.remove(0);
 		int t = 0;
-		while (t != currentProcess.getArrivalTime()){
+		while (t < currentProcess.getArrivalTime()){
 			t++;
 		}
 		for(Process process : processes){
 			if(!queue.isEmpty()){
-				if(currentProcess == null){
-					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
-				}
-				else if(currentProcess.getCurrentPriority() > Collections.min(queue, priorityOrder).getCurrentPriority()){
+				if(currentProcess.getCurrentPriority() > Collections.min(queue, priorityOrder).getCurrentPriority()){
 					currentProcess.stop(t);
 					if(currentProcess.getRemainingBurstTime() != currentProcess.getBurstTime()){
 						timeline.add(new Process(currentProcess));
@@ -47,8 +44,6 @@ public class PrioSched extends SchedulingAlgorithm {
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
 					currentProcess.start(t);
 				}
-			} else {
-				
 			}
 			while(t != process.getArrivalTime() || currentProcess.getRemainingBurstTime() == 0){
 				if(currentProcess.getRemainingBurstTime() == 0){
