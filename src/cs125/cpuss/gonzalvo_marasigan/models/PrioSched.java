@@ -15,15 +15,6 @@ public class PrioSched extends SchedulingAlgorithm {
 
 	};
 
-	private Comparator<Process> arrivalOrder = new Comparator<Process>() {
-
-		@Override
-		public int compare(Process p1, Process p2) {
-			return p1.getArrivalTime() - p2.getArrivalTime();
-		}
-
-	};
-
 	public PrioSched(ArrayList<Process> processes) {
 		super(processes);
 		this.sName = "Priority Scheduling";
@@ -51,12 +42,7 @@ public class PrioSched extends SchedulingAlgorithm {
 							.getBurstTime()) {
 						timeline.add(new Process(currentProcess));
 					}
-					queue.add(currentProcess);
-					currentProcess = (currentProcess.getCurrentPriority() != Collections
-							.min(queue, priorityOrder).getCurrentPriority() ? queue
-							.remove(queue.indexOf(Collections.min(queue,
-									priorityOrder))) : queue.remove(queue
-							.indexOf(Collections.min(queue, arrivalOrder))));
+					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
 					currentProcess.start(t);
 				}
 			}
