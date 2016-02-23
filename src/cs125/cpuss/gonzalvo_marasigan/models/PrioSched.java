@@ -44,29 +44,17 @@ public class PrioSched extends SchedulingAlgorithm {
 		}
 		for (Process process : processes) {
 			if (!queue.isEmpty()) {
-				if (currentProcess.getCurrentPriority() > Collections.min(
-						queue, priorityOrder).getCurrentPriority()) {
+				if (currentProcess.getCurrentPriority() > Collections.min(queue, priorityOrder).getCurrentPriority()) {
 					currentProcess.stop(t);
-					if (currentProcess.getRemainingBurstTime() != currentProcess
-							.getBurstTime()) {
+					if (currentProcess.getRemainingBurstTime() != currentProcess.getBurstTime()) {
 						timeline.add(new Process(currentProcess));
 					}
 					queue.add(currentProcess);
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
 					currentProcess.start(t);
-				} else {
-					currentProcess.stop(t);
-					if (currentProcess.getRemainingBurstTime() != currentProcess
-							.getBurstTime()) {
-						timeline.add(new Process(currentProcess));
-					}
-					queue.add(currentProcess);
-					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, arrivalOrder)));
-					currentProcess.start(t);
 				}
 			}
-			while (t != process.getArrivalTime()
-					|| currentProcess.getRemainingBurstTime() == 0) {
+			while (t != process.getArrivalTime() || currentProcess.getRemainingBurstTime() == 0) {
 				if (currentProcess.getRemainingBurstTime() == 0) {
 					currentProcess.destroy(t);
 					timeline.add(new Process(currentProcess));
@@ -77,19 +65,33 @@ public class PrioSched extends SchedulingAlgorithm {
 				currentProcess.run();
 				t++;
 			}
-			if (currentProcess != null
-					&& currentProcess.getCurrentPriority() > process
-							.getCurrentPriority()) {
+			if (currentProcess != null && currentProcess.getCurrentPriority() > process.getCurrentPriority()) {
 				currentProcess.stop(t);
-				if (currentProcess.getRemainingBurstTime() != currentProcess
-						.getBurstTime()) {
+				if (currentProcess.getRemainingBurstTime() != currentProcess.getBurstTime()) {
 					timeline.add(new Process(currentProcess));
 				}
 				queue.add(currentProcess);
 				currentProcess = process;
 				currentProcess.start(t);
 			} else if (currentProcess == null) {
-				currentProcess = process;
+				if(t < process.getArrivalTime() && !queue.isEmpty()){
+					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
+					currentProcess.start(t);
+					while(t < process.getArrivalTime()){
+						if (currentProcess.getRemainingBurstTime() == 0) {
+							currentProcess.destroy(t);
+							timeline.add(new Process(currentProcess));
+							finished.add(currentProcess);
+							currentProcess = null;
+							break;
+						}
+						currentProcess.run();
+						t++;
+					}
+					queue.add(process);
+				} else {
+					currentProcess = process;
+				}
 			} else {
 				queue.add(process);
 			}
