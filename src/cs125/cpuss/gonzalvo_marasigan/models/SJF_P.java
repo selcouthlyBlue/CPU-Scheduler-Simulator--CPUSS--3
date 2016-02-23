@@ -61,8 +61,18 @@ public class SJF_P extends SchedulingAlgorithm{
 				currentProcess = process;
 				currentProcess.start(t);
 			} else if(currentProcess == null) {
-				currentProcess = process;
-			} else if(t >= process.getArrivalTime()){
+				if(t < process.getArrivalTime() && !queue.isEmpty()){
+					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
+					currentProcess.start(t);
+					while(t < process.getArrivalTime()){
+						currentProcess.run();
+						t++;
+					}
+					queue.add(process);
+				} else {
+					currentProcess = process;
+				}
+			} else {
 				queue.add(process);
 			}
 		}
