@@ -83,6 +83,7 @@ public class PrioSched extends SchedulingAlgorithm {
 							timeline.add(new Process(currentProcess));
 							finished.add(currentProcess);
 							currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
+							currentProcess.start(t);
 						}
 						currentProcess.run();
 						t++;
