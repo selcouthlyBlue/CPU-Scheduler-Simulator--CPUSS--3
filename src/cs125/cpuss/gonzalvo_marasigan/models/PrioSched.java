@@ -35,13 +35,14 @@ public class PrioSched extends SchedulingAlgorithm {
 		}
 		for (Process process : processes) {
 			if (!queue.isEmpty()) {
-				if (currentProcess.getCurrentPriority() >= Collections.min(
+				if (currentProcess.getCurrentPriority() > Collections.min(
 						queue, priorityOrder).getCurrentPriority()) {
 					currentProcess.stop(t);
 					if (currentProcess.getRemainingBurstTime() != currentProcess
 							.getBurstTime()) {
 						timeline.add(new Process(currentProcess));
 					}
+					queue.add(currentProcess);
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
 					currentProcess.start(t);
 				}

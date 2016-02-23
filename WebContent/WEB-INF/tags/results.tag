@@ -32,4 +32,8 @@
 			style="width:${process.getLength()}em; background-color: rgb(${process.getProcessId() + 100}, ${process.getProcessId() * 25}, ${process.getProcessId() * 12})">P${process.getProcessId()}</div>
 		<sub>${process.getEndTime()}</sub>
 	</c:forEach>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
 </c:forEach>
