@@ -18,6 +18,7 @@ public abstract class SchedulingAlgorithm {
 	protected double dAverageWaitingTime;
 	protected double dAverageTurnaroundTime;
 	protected String sName;
+	protected int iQuantum;
 	
 	/**
 	 * Gets the Average Waiting Time and Average Turnaround Time 
@@ -87,5 +88,10 @@ public abstract class SchedulingAlgorithm {
 
 	public double getAverageTurnaroundTime() {
 		return dAverageTurnaroundTime;
+	}
+	
+
+	public int getQuantum() {
+		return iQuantum;
 	}
 }

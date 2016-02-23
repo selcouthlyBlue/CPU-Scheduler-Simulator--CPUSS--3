@@ -22,8 +22,11 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<p>Average waiting time : ${result.getAverageWaitingTime()}</p>
-	<p>Average turnaround time : ${result.getAverageTurnaroundTime()}</p>
+	<p>Average waiting time: ${result.getAverageWaitingTime()}</p>
+	<p>Average turnaround time: ${result.getAverageTurnaroundTime()}</p>
+	<c:if test="${result.getQuantum() != 0}">
+		<p>Quantum: ${result.getQuantum()}</p>
+	</c:if>
 	<c:forEach items="${result.getTimeline()}" var="process">
 		<div class="process"
 			style="width:${process.getLength()}em; background-color: rgb(${process.getProcessId() + 100}, ${process.getProcessId() * 25}, ${process.getProcessId() * 12})">P${process.getProcessId()}</div>

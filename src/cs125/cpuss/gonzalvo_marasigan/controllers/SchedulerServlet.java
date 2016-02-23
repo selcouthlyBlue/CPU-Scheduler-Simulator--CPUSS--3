@@ -14,6 +14,7 @@ import javax.servlet.http.Part;
 import cs125.cpuss.gonzalvo_marasigan.models.FCFS;
 import cs125.cpuss.gonzalvo_marasigan.models.PrioSched;
 import cs125.cpuss.gonzalvo_marasigan.models.Process;
+import cs125.cpuss.gonzalvo_marasigan.models.RR;
 import cs125.cpuss.gonzalvo_marasigan.models.SJF_P;
 import cs125.cpuss.gonzalvo_marasigan.models.SchedulingAlgorithm;
 import cs125.cpuss.gonzalvo_marasigan.models.Upload;
@@ -46,6 +47,9 @@ public class SchedulerServlet extends HttpServlet {
             prio.performScheduling();
             results.add(prio);
             request.setAttribute("results", results);
+            SchedulingAlgorithm rr = new RR(processes, Integer.parseInt(request.getParameter("quantum")));
+            rr.performScheduling();
+            results.add(rr);
             RequestDispatcher view =
             		request.getRequestDispatcher("results.jsp");
             view.forward(request, response);
