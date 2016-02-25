@@ -22,13 +22,13 @@ public class RR extends SchedulingAlgorithm {
 		while(!processes.isEmpty()) {
 			Process currentProcess = processes.remove(0);
 			currentProcess.start(t);
-			int q = 1;
-			while (q != iQuantum + 1 && currentProcess.getRemainingBurstTime() > 0) {
+			int q = 0;
+			while (q != iQuantum && !currentProcess.isFinished()) {
 				currentProcess.run();
 				q++;
 				t++;
 			}
-			if (currentProcess.getRemainingBurstTime() == 0 || processes.isEmpty()) {
+			if (currentProcess.isFinished() || processes.isEmpty()) {
 				currentProcess.destroy(t);
 				timeline.add(new Process(currentProcess));
 				finished.add(currentProcess);

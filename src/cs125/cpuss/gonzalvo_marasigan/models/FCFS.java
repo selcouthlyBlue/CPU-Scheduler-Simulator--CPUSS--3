@@ -16,12 +16,12 @@ public class FCFS extends SchedulingAlgorithm{
 	@Override
 	public void performScheduling() {
 		Collections.sort(processes, new Process());
-		int prevTurnaroundTime = processes.get(0).getArrivalTime();
+		int t = processes.get(0).getArrivalTime();
 		for(Process process: processes){
-			process.start(prevTurnaroundTime);
-			process.destroy(prevTurnaroundTime);
+			process.start(t);
+			process.destroy(t);
 			timeline.add(new Process(process));
-			prevTurnaroundTime = process.getTurnaroundTime() + process.getArrivalTime();
+			t = process.getTurnaroundTime() + process.getArrivalTime();
 		}
 		getAverage();
 	}

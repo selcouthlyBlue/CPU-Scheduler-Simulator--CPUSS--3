@@ -137,6 +137,22 @@ public class Process implements Comparable<Process>, Comparator<Process>{
 	public int getLength(){
 		return (this.iEndTime - this.iStartTime);
 	}
+	
+	public boolean isFinished(){
+		return this.iRemainingBTime == 0;
+	}
+	
+	public boolean hasHigherBurstTime(Process process){
+		if(this.iRemainingBTime == process.iRemainingBTime)
+			return this.iProcessId > process.iProcessId;
+		return this.iRemainingBTime > process.iRemainingBTime;
+	}
+	
+	public boolean hasLowerPriority(Process process){
+		if(this.iCurrentPriority == process.iCurrentPriority)
+			return this.iProcessId > process.iProcessId;
+		return this.iCurrentPriority > process.iCurrentPriority;
+	}
 
 	@Override
 	public int compareTo(Process process) {
