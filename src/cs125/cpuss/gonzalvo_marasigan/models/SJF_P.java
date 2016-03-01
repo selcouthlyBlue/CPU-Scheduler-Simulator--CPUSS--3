@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 public class SJF_P extends SchedulingAlgorithm{
 	
-	private Comparator<Process> burstOrder = new Comparator<Process>(){
+	protected Comparator<Process> burstOrder = new Comparator<Process>(){
 		@Override
 		public int compare(Process p1, Process p2) {
 			return p1.getRemainingBurstTime() - p2.getRemainingBurstTime();

@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 public class PrioSched extends SchedulingAlgorithm {
 
-	private Comparator<Process> priorityOrder = new Comparator<Process>() {
+	protected Comparator<Process> priorityOrder = new Comparator<Process>() {
 
 		@Override
 		public int compare(Process p1, Process p2) {
