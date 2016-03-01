@@ -7,7 +7,7 @@ public class FCFS extends SchedulingAlgorithm{
 
 	public FCFS(ArrayList<Process> processes) {
 		super(processes);
-		this.sName = "First Come, First Serve Scheduling";
+		this.name = SchedulingAlgorithmName.FCFS;
 	}
 	
 	/**
@@ -21,8 +21,8 @@ public class FCFS extends SchedulingAlgorithm{
 			process.start(t);
 			process.destroy(t);
 			timeline.add(new Process(process));
+			finished.add(process);
 			t = process.getTurnaroundTime() + process.getArrivalTime();
 		}
-		getAverage();
 	}
 }

@@ -15,22 +15,23 @@ import java.util.Collections;
 public abstract class SchedulingAlgorithm {
 	protected ArrayList<Process> processes;
 	protected ArrayList<Process> timeline;
+	protected ArrayList<Process> finished;
 	protected double dAverageWaitingTime;
 	protected double dAverageTurnaroundTime;
-	protected String sName;
+	protected SchedulingAlgorithmName name;
 	protected int iQuantum;
 	
 	/**
 	 * Gets the Average Waiting Time and Average Turnaround Time 
 	 */
-	protected void getAverage(){
-		Collections.sort(processes);
-		for(Process process: processes){
+	private void getAverage(){
+		Collections.sort(finished);
+		for(Process process: finished){
 			dAverageWaitingTime += process.getWaitingTime();
 			dAverageTurnaroundTime += process.getTurnaroundTime();
 		}
-		dAverageWaitingTime = dAverageWaitingTime/processes.size();
-		dAverageTurnaroundTime = dAverageTurnaroundTime/processes.size();
+		dAverageWaitingTime = dAverageWaitingTime/finished.size();
+		dAverageTurnaroundTime = dAverageTurnaroundTime/finished.size();
 	}
 
 	public abstract void performScheduling();
@@ -44,6 +45,7 @@ public abstract class SchedulingAlgorithm {
 		for(Process process : processes){
 			this.processes.add(new Process(process));
 		}
+		this.finished = new ArrayList<Process>();
 		this.timeline = new ArrayList<Process>();
 	}
 	
@@ -70,16 +72,17 @@ public abstract class SchedulingAlgorithm {
 		bw.close();
 	}
 	
-	public ArrayList<Process> getTimeline() {
+	public ArrayList<Process> getProcessTimeline() {
 		return timeline;
 	}
 
-	public ArrayList<Process> getProcesses() {
-		return processes;
+	public ArrayList<Process> getResults() {
+		getAverage();
+		return finished;
 	}
 
 	public String getName() {
-		return sName;
+		return name.toString();
 	}
 
 	public double getAverageWaitingTime() {
@@ -90,7 +93,6 @@ public abstract class SchedulingAlgorithm {
 		return dAverageTurnaroundTime;
 	}
 	
-
 	public int getQuantum() {
 		return iQuantum;
 	}

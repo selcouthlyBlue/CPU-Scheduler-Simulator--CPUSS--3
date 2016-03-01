@@ -7,7 +7,7 @@ public class SJF_NP extends SJF_P {
 	
 	public SJF_NP(ArrayList<Process> processes) {
 		super(processes);
-		this.sName = "Non-preemptive Shortest Job First Scheduling";
+		this.name = SchedulingAlgorithmName.SJF_NP;
 	}
 	
 	/**
@@ -16,10 +16,8 @@ public class SJF_NP extends SJF_P {
 	 */
 	@Override
 	public void performScheduling(){
-		ArrayList<Process> finished = new ArrayList<Process>();
 		ArrayList<Process> queue = new ArrayList<Process>();
 		Collections.sort(processes, new Process());
-		
 		Process currentProcess = processes.remove(0);
 		int t = 0;
 		
@@ -36,33 +34,31 @@ public class SJF_NP extends SJF_P {
 				}
 			}
 			if (currentProcess == null) {
-				if (!process.hasHigherBurstTime(Collections.min(queue, burstOrder))) {
-					currentProcess = process;
-					currentProcess.start(t);
-					t++;
-				}
-				else {
+				if(t < process.getArrivalTime() && !queue.isEmpty()){
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
 					currentProcess.start(t);
-					t++;
+					while(t < process.getArrivalTime()){
+						currentProcess.run();
+						t++;
+						if (currentProcess.isFinished()) {
+							currentProcess.destroy(t);
+							timeline.add(new Process(currentProcess));
+							finished.add(currentProcess);
+							currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
+							currentProcess.start(t);
+						}
+					}
+					queue.add(process);
+				} else {
+					currentProcess = process;
 				}
 			}
 			else { // case where t == process.getArrivalTime()
 				queue.add(process);
-				
 			}
 		}
-		while (!currentProcess.isFinished()) {
-			currentProcess.run();
-			t++;
-		}
-		currentProcess.destroy(t);
-		timeline.add(new Process(currentProcess));
-		finished.add(currentProcess);
-		while (!queue.isEmpty()) {
-			currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
-			currentProcess.start(t);
-			while (currentProcess.getRemainingBurstTime() != 0) {
+		if(currentProcess != null){
+			while (!currentProcess.isFinished()) {
 				currentProcess.run();
 				t++;
 			}
@@ -70,9 +66,17 @@ public class SJF_NP extends SJF_P {
 			timeline.add(new Process(currentProcess));
 			finished.add(currentProcess);
 		}
-		Collections.sort(finished);
-		this.processes = new ArrayList<Process>(finished);
-		getAverage();
+		while (!queue.isEmpty()) {
+			currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
+			currentProcess.start(t);
+			while (!currentProcess.isFinished()) {
+				currentProcess.run();
+				t++;
+			}
+			currentProcess.destroy(t);
+			timeline.add(new Process(currentProcess));
+			finished.add(currentProcess);
+		}
 	}
 
 }

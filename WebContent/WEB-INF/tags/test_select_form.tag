@@ -12,7 +12,7 @@
 			contenteditable="false">No file selected</div>
 	</div>
 	<input class="pure-input-1-1" name="quantum" placeholder="Quantum"
-		type="text" min="1" required> <br /> <input
+		type="text" min="1" step="1" required> <br /> <input
 		class="pure-button custom-button" type="submit" value="Upload"
 		name="upload" id="upload" />
 </form>

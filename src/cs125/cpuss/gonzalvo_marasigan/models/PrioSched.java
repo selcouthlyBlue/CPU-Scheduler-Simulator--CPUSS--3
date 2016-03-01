@@ -7,17 +7,15 @@ import java.util.Comparator;
 public class PrioSched extends SchedulingAlgorithm {
 
 	protected Comparator<Process> priorityOrder = new Comparator<Process>() {
-
 		@Override
 		public int compare(Process p1, Process p2) {
 			return p1.getCurrentPriority() - p2.getCurrentPriority();
 		}
-
 	};
 
 	public PrioSched(ArrayList<Process> processes) {
 		super(processes);
-		this.sName = "Priority Scheduling";
+		this.name = SchedulingAlgorithmName.PRIOSCHED;
 	}
 
 	/**
@@ -25,7 +23,6 @@ public class PrioSched extends SchedulingAlgorithm {
 	 */
 	@Override
 	public void performScheduling() {
-		ArrayList<Process> finished = new ArrayList<Process>();
 		ArrayList<Process> queue = new ArrayList<Process>();
 		Collections.sort(processes, new Process());
 		Process currentProcess = processes.remove(0);
@@ -118,9 +115,6 @@ public class PrioSched extends SchedulingAlgorithm {
 				currentProcess.destroy(t);
 				timeline.add(new Process(currentProcess));
 				finished.add(currentProcess);
-				Collections.sort(finished);
-				this.processes = new ArrayList<Process>(finished);
-				getAverage();
 			}
 		}
 	}

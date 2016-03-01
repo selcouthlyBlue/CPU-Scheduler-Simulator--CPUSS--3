@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@tag description="Results Tag" pageEncoding="UTF-8"%>
-<c:forEach items="${results}" var="result">
-	<h2>${result.getName()}</h2>
+<c:forEach items="${SchedulingAlgorithm}" var="SchedulingAlgorithm">
+	<h2>${SchedulingAlgorithm.getName()}</h2>
 	<table class="pure-table">
 		<tr>
 			<th>Process ID</th>
@@ -11,7 +11,7 @@
 			<th>Waiting Time</th>
 			<th>Turnaround Time</th>
 		</tr>
-		<c:forEach items="${result.getProcesses()}" var="process">
+		<c:forEach items="${SchedulingAlgorithm.getResults()}" var="process">
 			<tr>
 				<td>${process.getProcessId()}</td>
 				<td>${process.getArrivalTime()}</td>
@@ -22,12 +22,12 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<p>Average waiting time: ${result.getAverageWaitingTime()}</p>
-	<p>Average turnaround time: ${result.getAverageTurnaroundTime()}</p>
-	<c:if test="${result.getQuantum() != 0}">
-		<p>Quantum: ${result.getQuantum()}</p>
+	<p>Average waiting time: ${SchedulingAlgorithm.getAverageWaitingTime()}</p>
+	<p>Average turnaround time: ${SchedulingAlgorithm.getAverageTurnaroundTime()}</p>
+	<c:if test="${SchedulingAlgorithm.getQuantum() != 0}">
+		<p>Quantum: ${SchedulingAlgorithm.getQuantum()}</p>
 	</c:if>
-	<c:forEach items="${result.getTimeline()}" var="process">
+	<c:forEach items="${SchedulingAlgorithm.getProcessTimeline()}" var="process">
 		<div class="process"
 			style="width:${process.getLength()/2}em; background-color: rgb(${process.getProcessId() + 100}, ${process.getProcessId() * 25}, ${process.getProcessId() * 12})">P${process.getProcessId()}</div>
 		<sub>${process.getEndTime()}</sub>

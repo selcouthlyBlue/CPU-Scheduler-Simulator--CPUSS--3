@@ -7,7 +7,7 @@ public class Prio_NP extends PrioSched {
 
 	public Prio_NP(ArrayList<Process> processes) {
 		super(processes);
-		this.sName = "Priority Non-Preemptive Scheduling";
+		this.name = SchedulingAlgorithmName.PRIO_NP;
 	}
 
 
@@ -16,7 +16,6 @@ public class Prio_NP extends PrioSched {
 	 */
 	@Override
 	public void performScheduling(){
-		ArrayList<Process> finished = new ArrayList<Process>();
 		ArrayList<Process> queue = new ArrayList<Process>();
 		Collections.sort(processes, new Process());
 		
@@ -24,20 +23,19 @@ public class Prio_NP extends PrioSched {
 		int t = 0;
 		
 		for (Process process : processes) {
-			while(t != process.getArrivalTime() || currentProcess.getRemainingBurstTime() == 0){
-				if(currentProcess.getRemainingBurstTime() == 0){
+			while(t != process.getArrivalTime()){
+				currentProcess.run();
+				t++;
+				if(currentProcess.isFinished()){
 					currentProcess.destroy(t);
 					timeline.add(new Process(currentProcess));
 					finished.add(currentProcess);
 					currentProcess = null;
 					break;
 				}
-
-				currentProcess.run();
-				t++;
 			}
 			if (currentProcess == null) {
-				if (process.getRemainingBurstTime() < Collections.min(queue, priorityOrder).getRemainingBurstTime()) {
+				if (queue.isEmpty() || !process.hasLowerPriority(Collections.min(queue, priorityOrder))) {
 					currentProcess = process;
 					currentProcess.start(t);
 					t++;
@@ -52,19 +50,8 @@ public class Prio_NP extends PrioSched {
 				queue.add(process);
 			}
 		}
-		
-		while (currentProcess.getRemainingBurstTime() != 0) {
-			currentProcess.run();
-			t++;
-		}
-		currentProcess.destroy(t);
-		timeline.add(new Process(currentProcess));
-		finished.add(currentProcess);
-		
-		while (!queue.isEmpty()) {
-			currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
-			currentProcess.start(t);
-			while (currentProcess.getRemainingBurstTime() != 0) {
+		if(currentProcess != null){
+			while (!currentProcess.isFinished()) {
 				currentProcess.run();
 				t++;
 			}
@@ -72,8 +59,16 @@ public class Prio_NP extends PrioSched {
 			timeline.add(new Process(currentProcess));
 			finished.add(currentProcess);
 		}
-		Collections.sort(finished);
-		this.processes = new ArrayList<Process>(finished);
-		getAverage();
+		while (!queue.isEmpty()) {
+			currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
+			currentProcess.start(t);
+			while (!currentProcess.isFinished()) {
+				currentProcess.run();
+				t++;
+			}
+			currentProcess.destroy(t);
+			timeline.add(new Process(currentProcess));
+			finished.add(currentProcess);
+		}
 	}
 }

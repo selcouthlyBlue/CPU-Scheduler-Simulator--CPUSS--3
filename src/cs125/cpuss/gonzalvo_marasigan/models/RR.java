@@ -7,7 +7,7 @@ public class RR extends SchedulingAlgorithm {
 
 	public RR(ArrayList<Process> processes, int iQuantum) {
 		super(processes);
-		this.sName = "Round Robin Scheduling";
+		this.name = SchedulingAlgorithmName.RR;
 		this.iQuantum = iQuantum;
 	}
 
@@ -16,7 +16,6 @@ public class RR extends SchedulingAlgorithm {
 	 */
 	@Override
 	public void performScheduling() {
-		ArrayList<Process> finished = new ArrayList<Process>();
 		Collections.sort(processes, new Process());
 		int t = 0;
 		while(!processes.isEmpty()) {
@@ -38,8 +37,5 @@ public class RR extends SchedulingAlgorithm {
 				timeline.add(new Process(currentProcess));
 			}
 		}
-		Collections.sort(finished);
-		this.processes = new ArrayList<Process>(finished);
-		getAverage();
 	}
 }
