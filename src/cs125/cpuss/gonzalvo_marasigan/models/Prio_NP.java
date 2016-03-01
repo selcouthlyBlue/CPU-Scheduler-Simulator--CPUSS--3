@@ -35,15 +35,26 @@ public class Prio_NP extends PrioSched {
 				}
 			}
 			if (currentProcess == null) {
-				if (queue.isEmpty() || !process.hasLowerPriority(Collections.min(queue, priorityOrder))) {
+				if (t < process.getArrivalTime() && !queue.isEmpty()) {
+					currentProcess = queue.remove(queue.indexOf(Collections
+							.min(queue, priorityOrder)));
+					currentProcess.start(t);
+					while (t < process.getArrivalTime()) {
+						currentProcess.run();
+						t++;
+						if (currentProcess.isFinished()) {
+							currentProcess.destroy(t);
+							timeline.add(new Process(currentProcess));
+							finished.add(currentProcess);
+							currentProcess = queue.remove(queue
+									.indexOf(Collections.min(queue,
+											priorityOrder)));
+							currentProcess.start(t);
+						}
+					}
+					queue.add(process);
+				} else {
 					currentProcess = process;
-					currentProcess.start(t);
-					t++;
-				}
-				else {
-					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
-					currentProcess.start(t);
-					t++;
 				}
 			}
 			else { // case where t == process.getArrivalTime()
