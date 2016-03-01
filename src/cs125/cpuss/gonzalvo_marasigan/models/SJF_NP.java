@@ -20,7 +20,6 @@ public class SJF_NP extends SJF_P {
 		Collections.sort(processes, new Process());
 		Process currentProcess = processes.remove(0);
 		int t = 0;
-		
 		for (Process process : processes) {
 			while(t != process.getArrivalTime()){
 				currentProcess.run();

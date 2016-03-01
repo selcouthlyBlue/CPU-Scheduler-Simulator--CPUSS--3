@@ -102,14 +102,14 @@ public class PrioSched extends SchedulingAlgorithm {
 					currentProcess.start(t);
 				}
 			}
-			if (currentProcess.getEndTime() != 0) {
+			if (currentProcess.getEndTime() != 0 && !queue.isEmpty()) {
 				currentProcess.stop(t);
 				timeline.add(new Process(currentProcess));
 			}
-			queue.add(currentProcess);
-			currentProcess = queue.remove(queue.indexOf(Collections.min(queue,
-					priorityOrder)));
 			if (!queue.isEmpty()) {
+				queue.add(currentProcess);
+				currentProcess = queue.remove(queue.indexOf(Collections.min(queue,
+						priorityOrder)));
 				currentProcess.start(t);
 			} else {
 				currentProcess.destroy(t);
