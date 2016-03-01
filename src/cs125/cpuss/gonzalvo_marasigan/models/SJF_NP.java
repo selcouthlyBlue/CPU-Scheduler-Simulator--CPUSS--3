@@ -24,20 +24,19 @@ public class SJF_NP extends SJF_P {
 		int t = 0;
 		
 		for (Process process : processes) {
-			while(t != process.getArrivalTime() || currentProcess.getRemainingBurstTime() == 0){
-				if(currentProcess.getRemainingBurstTime() == 0){
+			while(t != process.getArrivalTime()){
+				currentProcess.run();
+				t++;
+				if(currentProcess.isFinished()){
 					currentProcess.destroy(t);
 					timeline.add(new Process(currentProcess));
 					finished.add(currentProcess);
 					currentProcess = null;
 					break;
 				}
-
-				currentProcess.run();
-				t++;
 			}
 			if (currentProcess == null) {
-				if (process.getRemainingBurstTime() < Collections.min(queue, burstOrder).getRemainingBurstTime()) {
+				if (!process.hasHigherBurstTime(Collections.min(queue, burstOrder))) {
 					currentProcess = process;
 					currentProcess.start(t);
 					t++;
@@ -53,15 +52,13 @@ public class SJF_NP extends SJF_P {
 				
 			}
 		}
-		
-		while (currentProcess.getRemainingBurstTime() != 0) {
+		while (!currentProcess.isFinished()) {
 			currentProcess.run();
 			t++;
 		}
 		currentProcess.destroy(t);
 		timeline.add(new Process(currentProcess));
 		finished.add(currentProcess);
-		
 		while (!queue.isEmpty()) {
 			currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
 			currentProcess.start(t);
@@ -73,7 +70,6 @@ public class SJF_NP extends SJF_P {
 			timeline.add(new Process(currentProcess));
 			finished.add(currentProcess);
 		}
-		
 		Collections.sort(finished);
 		this.processes = new ArrayList<Process>(finished);
 		getAverage();
