@@ -25,17 +25,22 @@ public class SJF_P extends SchedulingAlgorithm{
 	public void performScheduling(){
 		ArrayList<Process> queue = new ArrayList<Process>();
 		Collections.sort(processes, new Process());
-		Process currentProcess = processes.remove(0);
-		int t = currentProcess.getArrivalTime();
+		Process currentProcess = null;
+		int t = 0;
 		for(Process process : processes){
-			if(!queue.isEmpty() && currentProcess.hasHigherBurstTime(Collections.min(queue, burstOrder))){
-				currentProcess.stop(t);
-				if(currentProcess.getLength() != 0){
-					timeline.add(new Process(currentProcess));
+			if(!queue.isEmpty()){
+				if(currentProcess.hasHigherBurstTime(Collections.min(queue, burstOrder))){
+					currentProcess.stop(t);
+					if(currentProcess.getLength() != 0){
+						timeline.add(new Process(currentProcess));
+					}
+					queue.add(currentProcess);
+					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
+					currentProcess.start(t);
 				}
-				queue.add(currentProcess);
-				currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
-				currentProcess.start(t);
+			} else if(currentProcess == null) {
+				currentProcess = process;
+				continue;
 			}
 			while(t != process.getArrivalTime()){
 				currentProcess.run();

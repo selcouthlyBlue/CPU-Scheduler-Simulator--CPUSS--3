@@ -40,6 +40,9 @@ public class PrioSched extends SchedulingAlgorithm {
 							.min(queue, priorityOrder)));
 					currentProcess.start(t);
 				}
+			} else if(currentProcess == null){
+				currentProcess = process;
+				continue;
 			}
 			while (t != process.getArrivalTime()) {
 				currentProcess.run();
