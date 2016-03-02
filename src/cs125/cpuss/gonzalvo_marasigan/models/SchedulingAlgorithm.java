@@ -1,38 +1,32 @@
 package cs125.cpuss.gonzalvo_marasigan.models;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 /**
- * 
+ * Implementation of the CPU scheduling algorithms namely, First Come, First Serve Scheduling;
+ * Non-preemptive Shortest Job First Scheduling; Preemptive Shortest Job First Scheduling; Non-preemptive
+ * Priority Scheduling; Preemptive priority Scheduling, and; Round-Robin Scheduling.
+ * @see http://www.cs.columbia.edu/~junfeng/10sp-w4118/lectures/l13-sched.pdf
  * @author Gonzalvo, J.; Marasigan, M.
- *
  */
 public abstract class SchedulingAlgorithm {
 	protected ArrayList<Process> processes;
 	protected ArrayList<Process> timeline;
 	protected ArrayList<Process> finished;
-	protected double dAverageWaitingTime;
-	protected double dAverageTurnaroundTime;
 	protected SchedulingAlgorithmName name;
 	protected int iQuantum;
 	
 	/**
-	 * Gets the Average Waiting Time and Average Turnaround Time 
+	 * Compares processes with respect to their arrival times
 	 */
-	private void getAverage(){
-		Collections.sort(finished);
-		for(Process process: finished){
-			dAverageWaitingTime += process.getWaitingTime();
-			dAverageTurnaroundTime += process.getTurnaroundTime();
+	protected Comparator<Process> arrivalOrder = new Comparator<Process>(){
+		@Override
+		public int compare(Process process1, Process process2) {
+			return process1.getArrivalTime() - process2.getArrivalTime();
 		}
-		dAverageWaitingTime = dAverageWaitingTime/finished.size();
-		dAverageTurnaroundTime = dAverageTurnaroundTime/finished.size();
-	}
+	};
 
 	public abstract void performScheduling();
 
@@ -49,35 +43,12 @@ public abstract class SchedulingAlgorithm {
 		this.timeline = new ArrayList<Process>();
 	}
 	
-	public void generateResult(String sOutputFile) throws IOException {
-		BufferedWriter bw = new BufferedWriter(new FileWriter(sOutputFile, false));
-		PrintWriter pw = new PrintWriter(bw);
-		for(Process process : processes){
-			StringBuilder sb = new StringBuilder();
-			sb.append(process.getProcessId());
-			sb.append(",");
-			sb.append(process.getArrivalTime());
-			sb.append(",");
-			sb.append(process.getBurstTime());
-			sb.append(",");
-			sb.append(process.getPriority());
-			sb.append(",");
-			sb.append(process.getWaitingTime());
-			sb.append(",");
-			sb.append(process.getTurnaroundTime());
-			pw.println(sb.toString());
-		}
-		pw.println(dAverageWaitingTime);
-		pw.println(dAverageTurnaroundTime);
-		bw.close();
-	}
-	
 	public ArrayList<Process> getProcessTimeline() {
 		return timeline;
 	}
 
 	public ArrayList<Process> getResults() {
-		getAverage();
+		Collections.sort(finished);
 		return finished;
 	}
 
@@ -86,11 +57,19 @@ public abstract class SchedulingAlgorithm {
 	}
 
 	public double getAverageWaitingTime() {
-		return dAverageWaitingTime;
+		double dAverageWaitingTime = 0;
+		for(Process process: finished){
+			dAverageWaitingTime += process.getWaitingTime();
+		}
+		return dAverageWaitingTime/finished.size();
 	}
 
 	public double getAverageTurnaroundTime() {
-		return dAverageTurnaroundTime;
+		double dAverageTurnaroundTime = 0;
+		for(Process process: finished){
+			dAverageTurnaroundTime += process.getTurnaroundTime();
+		}
+		return dAverageTurnaroundTime/finished.size();
 	}
 	
 	public int getQuantum() {

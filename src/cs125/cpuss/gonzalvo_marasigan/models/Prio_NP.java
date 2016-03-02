@@ -17,17 +17,17 @@ public class Prio_NP extends PrioSched {
 	@Override
 	public void performScheduling(){
 		ArrayList<Process> queue = new ArrayList<Process>();
-		Collections.sort(processes, new Process());
+		Collections.sort(processes, arrivalOrder);
 		
 		Process currentProcess = processes.remove(0);
-		int t = 0;
+		int time = 0;
 		
 		for (Process process : processes) {
-			while(t != process.getArrivalTime()){
+			while(!process.hasArrived(time)){
 				currentProcess.run();
-				t++;
+				time++;
 				if(currentProcess.isFinished()){
-					currentProcess.destroy(t);
+					currentProcess.destroy(time);
 					timeline.add(new Process(currentProcess));
 					finished.add(currentProcess);
 					currentProcess = null;
@@ -35,21 +35,21 @@ public class Prio_NP extends PrioSched {
 				}
 			}
 			if (currentProcess == null) {
-				if (t < process.getArrivalTime() && !queue.isEmpty()) {
+				if (!process.hasArrived(time) && !queue.isEmpty()) {
 					currentProcess = queue.remove(queue.indexOf(Collections
 							.min(queue, priorityOrder)));
-					currentProcess.start(t);
-					while (t < process.getArrivalTime()) {
+					currentProcess.start(time);
+					while (!process.hasArrived(time)) {
 						currentProcess.run();
-						t++;
+						time++;
 						if (currentProcess.isFinished()) {
-							currentProcess.destroy(t);
+							currentProcess.destroy(time);
 							timeline.add(new Process(currentProcess));
 							finished.add(currentProcess);
 							currentProcess = queue.remove(queue
 									.indexOf(Collections.min(queue,
 											priorityOrder)));
-							currentProcess.start(t);
+							currentProcess.start(time);
 						}
 					}
 					queue.add(process);
@@ -64,20 +64,20 @@ public class Prio_NP extends PrioSched {
 		if(currentProcess != null){
 			while (!currentProcess.isFinished()) {
 				currentProcess.run();
-				t++;
+				time++;
 			}
-			currentProcess.destroy(t);
+			currentProcess.destroy(time);
 			timeline.add(new Process(currentProcess));
 			finished.add(currentProcess);
 		}
 		while (!queue.isEmpty()) {
 			currentProcess = queue.remove(queue.indexOf(Collections.min(queue, priorityOrder)));
-			currentProcess.start(t);
+			currentProcess.start(time);
 			while (!currentProcess.isFinished()) {
 				currentProcess.run();
-				t++;
+				time++;
 			}
-			currentProcess.destroy(t);
+			currentProcess.destroy(time);
 			timeline.add(new Process(currentProcess));
 			finished.add(currentProcess);
 		}

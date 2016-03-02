@@ -1,6 +1,9 @@
 package cs125.cpuss.gonzalvo_marasigan.controllers;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -72,5 +75,37 @@ public class SchedulerServlet extends HttpServlet {
 		RequestDispatcher view =
         		request.getRequestDispatcher("index.jsp");
         view.forward(request, response);
+	}
+	
+	/**
+	 * Outputs results of the scheduling procedure to a file.
+	 * @param schedulingAlgorithm the algorithm used
+	 * @param sOutputFile the test file
+	 * @throws IOException
+	 */
+	@SuppressWarnings("unused")
+	private void generateResult(final SchedulingAlgorithm schedulingAlgorithm, final String sOutputFile) throws IOException {
+		String outputFile = schedulingAlgorithm.getName() + "_" + sOutputFile;
+		BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile, false));
+		PrintWriter pw = new PrintWriter(bw);
+		ArrayList<Process> results = schedulingAlgorithm.getResults();
+		for(Process process : results){
+			StringBuilder sb = new StringBuilder();
+			sb.append(process.getProcessId());
+			sb.append(",");
+			sb.append(process.getArrivalTime());
+			sb.append(",");
+			sb.append(process.getBurstTime());
+			sb.append(",");
+			sb.append(process.getPriority());
+			sb.append(",");
+			sb.append(process.getWaitingTime());
+			sb.append(",");
+			sb.append(process.getTurnaroundTime());
+			pw.println(sb.toString());
+		}
+		pw.println(schedulingAlgorithm.getAverageWaitingTime());
+		pw.println(schedulingAlgorithm.getAverageTurnaroundTime());
+		bw.close();
 	}
 }

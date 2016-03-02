@@ -24,31 +24,31 @@ public class PrioSched extends SchedulingAlgorithm {
 	@Override
 	public void performScheduling() {
 		ArrayList<Process> queue = new ArrayList<Process>();
-		Collections.sort(processes, new Process());
+		Collections.sort(processes, arrivalOrder);
 		Process currentProcess = processes.remove(0);
-		int t = currentProcess.getArrivalTime();
+		int time = currentProcess.getArrivalTime();
 		for (Process process : processes) {
 			if (!queue.isEmpty()) {
 				if (currentProcess.hasLowerPriority(Collections.min(queue,
 						priorityOrder))) {
-					currentProcess.stop(t);
+					currentProcess.stop(time);
 					if (currentProcess.getLength() != 0) {
 						timeline.add(new Process(currentProcess));
 					}
 					queue.add(currentProcess);
 					currentProcess = queue.remove(queue.indexOf(Collections
 							.min(queue, priorityOrder)));
-					currentProcess.start(t);
+					currentProcess.start(time);
 				}
 			} else if(currentProcess == null){
 				currentProcess = process;
 				continue;
 			}
-			while (t != process.getArrivalTime()) {
+			while (!process.hasArrived(time)) {
 				currentProcess.run();
-				t++;
+				time++;
 				if (currentProcess.isFinished()) {
-					currentProcess.destroy(t);
+					currentProcess.destroy(time);
 					timeline.add(new Process(currentProcess));
 					finished.add(currentProcess);
 					currentProcess = null;
@@ -57,29 +57,29 @@ public class PrioSched extends SchedulingAlgorithm {
 			}
 			if (currentProcess != null
 					&& currentProcess.hasLowerPriority(process)) {
-				currentProcess.stop(t);
+				currentProcess.stop(time);
 				if (currentProcess.getLength() != 0) {
 					timeline.add(new Process(currentProcess));
 				}
 				queue.add(currentProcess);
 				currentProcess = process;
-				currentProcess.start(t);
+				currentProcess.start(time);
 			} else if (currentProcess == null) {
-				if (t < process.getArrivalTime() && !queue.isEmpty()) {
+				if (!process.hasArrived(time) && !queue.isEmpty()) {
 					currentProcess = queue.remove(queue.indexOf(Collections
 							.min(queue, priorityOrder)));
-					currentProcess.start(t);
-					while (t < process.getArrivalTime()) {
+					currentProcess.start(time);
+					while (!process.hasArrived(time)) {
 						currentProcess.run();
-						t++;
+						time++;
 						if (currentProcess.isFinished()) {
-							currentProcess.destroy(t);
+							currentProcess.destroy(time);
 							timeline.add(new Process(currentProcess));
 							finished.add(currentProcess);
 							currentProcess = queue.remove(queue
 									.indexOf(Collections.min(queue,
 											priorityOrder)));
-							currentProcess.start(t);
+							currentProcess.start(time);
 						}
 					}
 					queue.add(process);
@@ -95,27 +95,27 @@ public class PrioSched extends SchedulingAlgorithm {
 					&& !currentProcess.hasLowerPriority(Collections.min(queue,
 							priorityOrder))) {
 				currentProcess.run();
-				t++;
+				time++;
 				if (currentProcess.isFinished()) {
-					currentProcess.destroy(t);
+					currentProcess.destroy(time);
 					timeline.add(new Process(currentProcess));
 					finished.add(currentProcess);
 					currentProcess = queue.remove(queue.indexOf(Collections
 							.min(queue, priorityOrder)));
-					currentProcess.start(t);
+					currentProcess.start(time);
 				}
 			}
 			if (currentProcess.getEndTime() != 0 && !queue.isEmpty()) {
-				currentProcess.stop(t);
+				currentProcess.stop(time);
 				timeline.add(new Process(currentProcess));
 			}
 			if (!queue.isEmpty()) {
 				queue.add(currentProcess);
 				currentProcess = queue.remove(queue.indexOf(Collections.min(queue,
 						priorityOrder)));
-				currentProcess.start(t);
+				currentProcess.start(time);
 			} else {
-				currentProcess.destroy(t);
+				currentProcess.destroy(time);
 				timeline.add(new Process(currentProcess));
 				finished.add(currentProcess);
 			}

@@ -16,23 +16,27 @@ public class RR extends SchedulingAlgorithm {
 	 */
 	@Override
 	public void performScheduling() {
-		Collections.sort(processes, new Process());
-		int t = 0;
+		Collections.sort(processes, arrivalOrder);
+		int time = 0;
 		while(!processes.isEmpty()) {
 			Process currentProcess = processes.remove(0);
-			currentProcess.start(t);
+			currentProcess.start(time);
 			int q = 0;
-			while (q != iQuantum && !currentProcess.isFinished()) {
+			while (q < iQuantum && !currentProcess.isFinished()) {
 				currentProcess.run();
 				q++;
-				t++;
+				time++;
 			}
 			if (currentProcess.isFinished() || processes.isEmpty()) {
-				currentProcess.destroy(t);
+				currentProcess.destroy(time);
 				timeline.add(new Process(currentProcess));
 				finished.add(currentProcess);
 			} else {
-				currentProcess.stop(t);
+				while(!processes.isEmpty() && !processes.get(0).hasArrived(time)){
+					currentProcess.run();
+					time++;
+				}
+				currentProcess.stop(time);
 				processes.add(processes.size(), new Process(currentProcess));
 				timeline.add(new Process(currentProcess));
 			}

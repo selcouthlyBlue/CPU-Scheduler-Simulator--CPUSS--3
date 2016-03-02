@@ -24,29 +24,29 @@ public class SJF_P extends SchedulingAlgorithm{
 	@Override
 	public void performScheduling(){
 		ArrayList<Process> queue = new ArrayList<Process>();
-		Collections.sort(processes, new Process());
+		Collections.sort(processes, arrivalOrder);
 		Process currentProcess = null;
-		int t = 0;
+		int time = 0;
 		for(Process process : processes){
 			if(!queue.isEmpty()){
 				if(currentProcess.hasHigherBurstTime(Collections.min(queue, burstOrder))){
-					currentProcess.stop(t);
+					currentProcess.stop(time);
 					if(currentProcess.getLength() != 0){
 						timeline.add(new Process(currentProcess));
 					}
 					queue.add(currentProcess);
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
-					currentProcess.start(t);
+					currentProcess.start(time);
 				}
 			} else if(currentProcess == null) {
 				currentProcess = process;
 				continue;
 			}
-			while(t != process.getArrivalTime()){
+			while(!process.hasArrived(time)){
 				currentProcess.run();
-				t++;
+				time++;
 				if(currentProcess.isFinished()){
-					currentProcess.destroy(t);
+					currentProcess.destroy(time);
 					timeline.add(new Process(currentProcess));
 					finished.add(currentProcess);
 					currentProcess = null;
@@ -54,26 +54,26 @@ public class SJF_P extends SchedulingAlgorithm{
 				}
 			}
 			if(currentProcess != null && currentProcess.hasHigherBurstTime(process)){
-				currentProcess.stop(t);
+				currentProcess.stop(time);
 				if(currentProcess.getLength() != 0){
 					timeline.add(new Process(currentProcess));
 				}
 				queue.add(currentProcess);
 				currentProcess = process;
-				currentProcess.start(t);
+				currentProcess.start(time);
 			} else if(currentProcess == null) {
-				if(t < process.getArrivalTime() && !queue.isEmpty()){
+				if(!process.hasArrived(time) && !queue.isEmpty()){
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
-					currentProcess.start(t);
-					while(t < process.getArrivalTime()){
+					currentProcess.start(time);
+					while(!process.hasArrived(time)){
 						currentProcess.run();
-						t++;
+						time++;
 						if (currentProcess.isFinished()) {
-							currentProcess.destroy(t);
+							currentProcess.destroy(time);
 							timeline.add(new Process(currentProcess));
 							finished.add(currentProcess);
 							currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
-							currentProcess.start(t);
+							currentProcess.start(time);
 						}
 					}
 					queue.add(process);
@@ -87,25 +87,25 @@ public class SJF_P extends SchedulingAlgorithm{
 		while(!queue.isEmpty()){
 			while(!queue.isEmpty() && !currentProcess.hasHigherBurstTime(Collections.min(queue, burstOrder))){
 				currentProcess.run();
-				t++;
+				time++;
 				if(currentProcess.isFinished()){
-					currentProcess.destroy(t);
+					currentProcess.destroy(time);
 					timeline.add(new Process(currentProcess));
 					finished.add(currentProcess);
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
-					currentProcess.start(t);
+					currentProcess.start(time);
 				}
 			}
 			if(currentProcess.getEndTime() != 0 && !queue.isEmpty()){
-				currentProcess.stop(t);
+				currentProcess.stop(time);
 				timeline.add(new Process(currentProcess));
 			}
 			if(!queue.isEmpty()){
 				queue.add(currentProcess);
 				currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
-				currentProcess.start(t);
+				currentProcess.start(time);
 			} else {
-				currentProcess.destroy(t);
+				currentProcess.destroy(time);
 				timeline.add(new Process(currentProcess));
 				finished.add(currentProcess);
 			}
