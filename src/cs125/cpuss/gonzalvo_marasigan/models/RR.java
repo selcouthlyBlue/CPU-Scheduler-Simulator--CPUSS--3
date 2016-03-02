@@ -32,12 +32,12 @@ public class RR extends SchedulingAlgorithm {
 				timeline.add(new Process(currentProcess));
 				finished.add(currentProcess);
 			} else {
-				while(!processes.isEmpty() && !processes.get(0).hasArrived(time)){
-					currentProcess.run();
-					time++;
-				}
 				currentProcess.stop(time);
-				processes.add(processes.size(), new Process(currentProcess));
+				if(!processes.isEmpty() && !processes.get(0).hasArrived(time)){
+					processes.add(0, new Process(currentProcess));
+				} else {
+					processes.add(new Process(currentProcess));
+				}
 				timeline.add(new Process(currentProcess));
 			}
 		}
