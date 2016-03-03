@@ -1,8 +1,10 @@
-package cs125.cpuss.gonzalvo_marasigan.models;
+package cs125.cpuss.gonzalvo_marasigan.models.schedulingalgorithms;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import cs125.cpuss.gonzalvo_marasigan.models.Process;
 
 public class PrioSched extends SchedulingAlgorithm {
 

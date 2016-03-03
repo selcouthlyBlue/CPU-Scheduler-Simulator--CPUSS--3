@@ -1,4 +1,4 @@
-package cs125.cpuss.gonzalvo_marasigan.models;
+package cs125.cpuss.gonzalvo_marasigan.models.schedulingalgorithms;
 
 public enum SchedulingAlgorithmName {
 	FCFS, SJF_NP, SJF_P, PRIO_NP, PRIOSCHED, RR;

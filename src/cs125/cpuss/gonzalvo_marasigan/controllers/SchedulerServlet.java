@@ -14,15 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import cs125.cpuss.gonzalvo_marasigan.models.FCFS;
-import cs125.cpuss.gonzalvo_marasigan.models.PrioSched;
-import cs125.cpuss.gonzalvo_marasigan.models.Prio_NP;
 import cs125.cpuss.gonzalvo_marasigan.models.Process;
-import cs125.cpuss.gonzalvo_marasigan.models.RR;
-import cs125.cpuss.gonzalvo_marasigan.models.SJF_NP;
-import cs125.cpuss.gonzalvo_marasigan.models.SJF_P;
-import cs125.cpuss.gonzalvo_marasigan.models.SchedulingAlgorithm;
 import cs125.cpuss.gonzalvo_marasigan.models.Upload;
+import cs125.cpuss.gonzalvo_marasigan.models.schedulingalgorithms.FCFS;
+import cs125.cpuss.gonzalvo_marasigan.models.schedulingalgorithms.PrioSched;
+import cs125.cpuss.gonzalvo_marasigan.models.schedulingalgorithms.Prio_NP;
+import cs125.cpuss.gonzalvo_marasigan.models.schedulingalgorithms.RR;
+import cs125.cpuss.gonzalvo_marasigan.models.schedulingalgorithms.SJF_NP;
+import cs125.cpuss.gonzalvo_marasigan.models.schedulingalgorithms.SJF_P;
+import cs125.cpuss.gonzalvo_marasigan.models.schedulingalgorithms.SchedulingAlgorithm;
 
 @MultipartConfig(fileSizeThreshold=1024*1024*10,    // 10 MB 
 maxFileSize=1024*1024*50,          // 50 MB

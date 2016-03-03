@@ -1,7 +1,9 @@
-package cs125.cpuss.gonzalvo_marasigan.models;
+package cs125.cpuss.gonzalvo_marasigan.models.schedulingalgorithms;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import cs125.cpuss.gonzalvo_marasigan.models.Process;
 
 public class RR extends SchedulingAlgorithm {
 
