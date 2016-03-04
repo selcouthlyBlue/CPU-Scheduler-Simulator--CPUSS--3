@@ -1,10 +1,8 @@
-package cs125.cpuss.gonzalvo_marasigan.models.schedulingalgorithms;
+package cs125.cpuss.gonzalvo_marasigan.models;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
-import cs125.cpuss.gonzalvo_marasigan.models.Process;
 
 /**
  * Implementation of the CPU scheduling algorithms namely, First Come, First Serve Scheduling;
@@ -18,7 +16,6 @@ public abstract class SchedulingAlgorithm {
 	protected ArrayList<Process> timeline;
 	protected ArrayList<Process> finished;
 	protected SchedulingAlgorithmName name;
-	protected int iQuantum;
 	
 	/**
 	 * Compares processes with respect to their arrival times
@@ -72,9 +69,5 @@ public abstract class SchedulingAlgorithm {
 			dAverageTurnaroundTime += process.getTurnaroundTime();
 		}
 		return dAverageTurnaroundTime/finished.size();
-	}
-	
-	public int getQuantum() {
-		return iQuantum;
 	}
 }

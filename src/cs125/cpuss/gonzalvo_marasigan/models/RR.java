@@ -1,11 +1,11 @@
-package cs125.cpuss.gonzalvo_marasigan.models.schedulingalgorithms;
+package cs125.cpuss.gonzalvo_marasigan.models;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import cs125.cpuss.gonzalvo_marasigan.models.Process;
-
 public class RR extends SchedulingAlgorithm {
+	
+	private int iQuantum;
 
 	public RR(ArrayList<Process> processes, int iQuantum) {
 		super(processes);
@@ -31,7 +31,6 @@ public class RR extends SchedulingAlgorithm {
 			}
 			if (currentProcess.isFinished() || processes.isEmpty()) {
 				currentProcess.destroy(time);
-				timeline.add(new Process(currentProcess));
 				finished.add(currentProcess);
 			} else {
 				currentProcess.stop(time);
@@ -40,8 +39,12 @@ public class RR extends SchedulingAlgorithm {
 				} else {
 					processes.add(new Process(currentProcess));
 				}
-				timeline.add(new Process(currentProcess));
 			}
+			timeline.add(new Process(currentProcess));
 		}
+	}
+	
+	public int getQuantum(){
+		return iQuantum;
 	}
 }

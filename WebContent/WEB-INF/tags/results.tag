@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@tag description="Results Tag" pageEncoding="UTF-8"%>
+<p>Quantum used for Round Robin Scheduling: <c:out value="${Quantum}"/></p>
 <c:forEach items="${SchedulingAlgorithm}" var="SchedulingAlgorithm">
 	<h2>${SchedulingAlgorithm.getName()}</h2>
 	<table class="pure-table">
@@ -24,9 +25,6 @@
 	</table>
 	<p>Average waiting time: ${SchedulingAlgorithm.getAverageWaitingTime()}</p>
 	<p>Average turnaround time: ${SchedulingAlgorithm.getAverageTurnaroundTime()}</p>
-	<c:if test="${SchedulingAlgorithm.getQuantum() != 0}">
-		<p>Quantum: ${SchedulingAlgorithm.getQuantum()}</p>
-	</c:if>
 	<c:forEach items="${SchedulingAlgorithm.getProcessTimeline()}" var="process">
 		<div class="process"
 			style="width:${process.getLength()/2}em; background-color: rgb(${process.getProcessId() + 100}, ${process.getProcessId() * 25}, ${process.getProcessId() * 12})">P${process.getProcessId()}</div>
