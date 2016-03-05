@@ -40,6 +40,7 @@ public class SJF_P extends SchedulingAlgorithm{
 				}
 			} else if(currentProcess == null) {
 				currentProcess = process;
+				time = currentProcess.getArrivalTime();
 				continue;
 			}
 			while(!process.hasArrived(time)){

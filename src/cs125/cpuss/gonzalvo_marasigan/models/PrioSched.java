@@ -25,8 +25,8 @@ public class PrioSched extends SchedulingAlgorithm {
 	public void performScheduling() {
 		ArrayList<Process> queue = new ArrayList<Process>();
 		Collections.sort(processes, arrivalOrder);
-		Process currentProcess = processes.remove(0);
-		int time = currentProcess.getArrivalTime();
+		Process currentProcess = null;
+		int time = 0;
 		for (Process process : processes) {
 			if (!queue.isEmpty()) {
 				if (currentProcess.hasLowerPriority(Collections.min(queue,
@@ -42,6 +42,7 @@ public class PrioSched extends SchedulingAlgorithm {
 				}
 			} else if(currentProcess == null){
 				currentProcess = process;
+				time = currentProcess.getArrivalTime();
 				continue;
 			}
 			while (!process.hasArrived(time)) {

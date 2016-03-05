@@ -18,9 +18,14 @@ public class SJF_NP extends SJF_P {
 	public void performScheduling(){
 		ArrayList<Process> queue = new ArrayList<Process>();
 		Collections.sort(processes, arrivalOrder);
-		Process currentProcess = processes.remove(0);
+		Process currentProcess = null;
 		int time = 0;
 		for (Process process : processes) {
+			if(currentProcess == null){
+				currentProcess = process;
+				time = currentProcess.getArrivalTime();
+				continue;
+			}
 			while(!process.hasArrived(time)){
 				currentProcess.run();
 				time++;

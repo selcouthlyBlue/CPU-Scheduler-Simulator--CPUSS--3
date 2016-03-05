@@ -19,7 +19,7 @@ public class RR extends SchedulingAlgorithm {
 	@Override
 	public void performScheduling() {
 		Collections.sort(processes, arrivalOrder);
-		int time = 0;
+		int time = processes.get(0).getArrivalTime();
 		while(!processes.isEmpty()) {
 			Process currentProcess = processes.remove(0);
 			currentProcess.start(time);
