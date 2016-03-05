@@ -3,21 +3,16 @@ package cs125.cpuss.gonzalvo_marasigan.models;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class RR extends SchedulingAlgorithm {
+public class RR_Plus extends SchedulingAlgorithm {
 	
-	protected int iQuantum;
+	private int iQuantum = 1;
 
-	public RR(ArrayList<Process> processes, int iQuantum) {
+	public RR_Plus(ArrayList<Process> processes) {
 		super(processes);
-		this.name = SchedulingAlgorithmName.RR;
-		this.iQuantum = iQuantum;
+		this.name = SchedulingAlgorithmName.RR_PLUS;
 	}
-
-	/**
-	 * Performs scheduling using the Round Robin scheduling algorithm.
-	 */
-	@Override
-	public void performScheduling() {
+	
+	public void performScheduling(){
 		Collections.sort(processes, arrivalOrder);
 		int time = 0;
 		while(!processes.isEmpty()) {
@@ -40,11 +35,8 @@ public class RR extends SchedulingAlgorithm {
 					processes.add(new Process(currentProcess));
 				}
 			}
+			iQuantum++;
 			timeline.add(new Process(currentProcess));
 		}
-	}
-	
-	public int getQuantum(){
-		return iQuantum;
 	}
 }
