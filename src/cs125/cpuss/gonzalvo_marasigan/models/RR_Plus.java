@@ -48,37 +48,40 @@ public class RR_Plus extends RR {
 		if(!queue.isEmpty()){
 			currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
 			currentProcess.start(time);
-		}
-		if(queue.isEmpty()){
-			currentProcess.start(time);
-			time += currentProcess.getRemainingBurstTime();
-			currentProcess.destroy(time);
-		} else {
-			while(!queue.isEmpty()){
-				while(!queue.isEmpty() && !currentProcess.hasHigherBurstTime(Collections.min(queue, burstOrder))){
+			if(queue.isEmpty()){
+				while(!currentProcess.isFinished()){
 					currentProcess.run();
 					time++;
-					if(currentProcess.isFinished()){
-						currentProcess.destroy(time);
-						timeline.add(new Process(currentProcess));
-						finished.add(currentProcess);
-						currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
-						currentProcess.start(time);
-					}
 				}
-				if(currentProcess.getEndTime() != 0 && !queue.isEmpty()){
-					currentProcess.stop(time);
-					timeline.add(new Process(currentProcess));
-				}
-				if(!queue.isEmpty()){
-					queue.add(currentProcess);
-					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
-					currentProcess.start(time);
-				} else {
+				currentProcess.destroy(time);
+				timeline.add(new Process(currentProcess));
+				finished.add(currentProcess);
+			}
+		}
+		while(!queue.isEmpty()){
+			while(!queue.isEmpty() && !currentProcess.hasHigherBurstTime(Collections.min(queue, burstOrder))){
+				currentProcess.run();
+				time++;
+				if(currentProcess.isFinished()){
 					currentProcess.destroy(time);
 					timeline.add(new Process(currentProcess));
 					finished.add(currentProcess);
+					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
+					currentProcess.start(time);
 				}
+			}
+			if(currentProcess.getEndTime() != 0 && !queue.isEmpty()){
+				currentProcess.stop(time);
+				timeline.add(new Process(currentProcess));
+			}
+			if(!queue.isEmpty()){
+				queue.add(currentProcess);
+				currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
+				currentProcess.start(time);
+			} else {
+				currentProcess.destroy(time);
+				timeline.add(new Process(currentProcess));
+				finished.add(currentProcess);
 			}
 		}
 	}

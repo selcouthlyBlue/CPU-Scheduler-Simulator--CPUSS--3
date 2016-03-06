@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@tag description="Results Tag" pageEncoding="UTF-8"%>
+<br/>
 <p>Quantum used for Round Robin Scheduling: <c:out value="${Quantum}"/></p>
 <c:forEach items="${SchedulingAlgorithm}" var="SchedulingAlgorithm">
 	<h2>${SchedulingAlgorithm.getName()}</h2>
