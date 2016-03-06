@@ -22,9 +22,6 @@ public class SchedulingAlgorithmFactory {
 		case PRIO_NP:
 			schedulingAlgorithm = new Prio_NP(processes);
 			break;
-		case RR_PLUS:
-			schedulingAlgorithm = new RR_Plus(processes);
-			break;
 		default:
 			break;
 		}
@@ -38,6 +35,9 @@ public class SchedulingAlgorithmFactory {
 		switch (name) {
 		case RR:
 			schedulingAlgorithm = new RR(processes, additionalParameter);
+			break;
+		case RR_PLUS:
+			schedulingAlgorithm = new RR_Plus(processes, additionalParameter);
 			break;
 		default:
 			break;

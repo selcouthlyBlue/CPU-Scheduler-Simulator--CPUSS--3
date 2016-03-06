@@ -11,7 +11,7 @@ public enum SchedulingAlgorithmName {
 		case PRIO_NP: return "Non-preemptive Priority Scheduling";
 		case PRIOSCHED: return "Priority Scheduling";
 		case RR: return "Round Robin Scheduling";
-		case RR_PLUS: return "Round Robin Scheduling+";
+		case RR_PLUS: return "Round Robin Scheduling + Preemptive Shortest Job First Scheduling";
 		}
 		return null;
 	}
