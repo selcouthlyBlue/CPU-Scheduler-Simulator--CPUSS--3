@@ -35,8 +35,7 @@ public class SchedulerServlet extends HttpServlet {
 		if (!filePart.equals(null)) {
 			Upload upload = new Upload(filePart);
 			upload.start();
-			ArrayList<Process> processes = new ArrayList<Process>(
-					upload.getProcesses());
+			ArrayList<Process> processes = new ArrayList<Process>(ProcessSetReader.getProcesses(upload.getFileName()));
 			ArrayList<SchedulingAlgorithm> results = new ArrayList<SchedulingAlgorithm>();
 			SchedulingAlgorithmFactory factory = new SchedulingAlgorithmFactory();
 			for (SchedulingAlgorithmName name : SchedulingAlgorithmName.values()) {
