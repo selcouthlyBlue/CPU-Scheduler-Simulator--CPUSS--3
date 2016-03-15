@@ -54,7 +54,8 @@ public class SJF_NP extends SJF_P {
 					}
 					queue.add(process);
 				} else {
-					currentProcess = process;
+					currentProcess = new Process(process);
+					currentProcess.start(time);
 				}
 			}
 			else { // case where t == process.getArrivalTime()

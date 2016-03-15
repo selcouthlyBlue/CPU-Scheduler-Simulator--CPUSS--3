@@ -57,7 +57,8 @@ public class Prio_NP extends PrioSched {
 					}
 					queue.add(process);
 				} else {
-					currentProcess = process;
+					currentProcess = new Process(process);
+					currentProcess.start(time);
 				}
 			}
 			else { // case where t == process.getArrivalTime()

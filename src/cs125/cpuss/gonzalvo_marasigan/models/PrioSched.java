@@ -85,41 +85,48 @@ public class PrioSched extends SchedulingAlgorithm {
 					}
 					queue.add(process);
 				} else {
-					currentProcess = process;
+					currentProcess = new Process(process);
+					currentProcess.start(time);
 				}
 			} else {
 				queue.add(process);
 			}
 		}
-		while (!queue.isEmpty()) {
-			while (!queue.isEmpty()
-					&& !currentProcess.hasLowerPriority(Collections.min(queue,
-							priorityOrder))) {
-				currentProcess.run();
-				time++;
-				if (currentProcess.isFinished()) {
+		if(!queue.isEmpty()){
+			while (!queue.isEmpty()) {
+				while (!queue.isEmpty()
+						&& !currentProcess.hasLowerPriority(Collections.min(queue,
+								priorityOrder))) {
+					currentProcess.run();
+					time++;
+					if (currentProcess.isFinished()) {
+						currentProcess.destroy(time);
+						timeline.add(new Process(currentProcess));
+						finished.add(currentProcess);
+						currentProcess = queue.remove(queue.indexOf(Collections
+								.min(queue, priorityOrder)));
+						currentProcess.start(time);
+					}
+				}
+				if (currentProcess.getEndTime() != 0 && !queue.isEmpty()) {
+					currentProcess.stop(time);
+					timeline.add(new Process(currentProcess));
+				}
+				if (!queue.isEmpty()) {
+					queue.add(currentProcess);
+					currentProcess = queue.remove(queue.indexOf(Collections.min(queue,
+							priorityOrder)));
+					currentProcess.start(time);
+				} else {
 					currentProcess.destroy(time);
 					timeline.add(new Process(currentProcess));
 					finished.add(currentProcess);
-					currentProcess = queue.remove(queue.indexOf(Collections
-							.min(queue, priorityOrder)));
-					currentProcess.start(time);
 				}
 			}
-			if (currentProcess.getEndTime() != 0 && !queue.isEmpty()) {
-				currentProcess.stop(time);
-				timeline.add(new Process(currentProcess));
-			}
-			if (!queue.isEmpty()) {
-				queue.add(currentProcess);
-				currentProcess = queue.remove(queue.indexOf(Collections.min(queue,
-						priorityOrder)));
-				currentProcess.start(time);
-			} else {
-				currentProcess.destroy(time);
-				timeline.add(new Process(currentProcess));
-				finished.add(currentProcess);
-			}
+		} else {
+			currentProcess.destroy(time);
+			timeline.add(new Process(currentProcess));
+			finished.add(currentProcess);
 		}
 	}
 }
