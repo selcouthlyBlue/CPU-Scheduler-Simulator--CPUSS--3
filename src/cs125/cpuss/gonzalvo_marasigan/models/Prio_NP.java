@@ -38,7 +38,7 @@ public class Prio_NP extends PrioSched {
 				}
 			}
 			if (currentProcess == null) {
-				if (!process.hasArrived(time) && !queue.isEmpty()) {
+				if (!process.hasArrived(time) || !queue.isEmpty()) {
 					currentProcess = queue.remove(queue.indexOf(Collections
 							.min(queue, priorityOrder)));
 					currentProcess.start(time);

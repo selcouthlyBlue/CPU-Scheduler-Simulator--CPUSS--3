@@ -66,7 +66,7 @@ public class PrioSched extends SchedulingAlgorithm {
 				currentProcess = process;
 				currentProcess.start(time);
 			} else if (currentProcess == null) {
-				if (!process.hasArrived(time) && !queue.isEmpty()) {
+				if (!process.hasArrived(time) || !queue.isEmpty()) {
 					currentProcess = queue.remove(queue.indexOf(Collections
 							.min(queue, priorityOrder)));
 					currentProcess.start(time);

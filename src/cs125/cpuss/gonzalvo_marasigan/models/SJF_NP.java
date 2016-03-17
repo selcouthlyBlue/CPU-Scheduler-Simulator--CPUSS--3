@@ -38,7 +38,7 @@ public class SJF_NP extends SJF_P {
 				}
 			}
 			if (currentProcess == null) {
-				if(!process.hasArrived(time) && !queue.isEmpty()){
+				if(!process.hasArrived(time) || !queue.isEmpty()){
 					currentProcess = queue.remove(queue.indexOf(Collections.min(queue, burstOrder)));
 					currentProcess.start(time);
 					while(!process.hasArrived(time)){
